@@ -10,8 +10,13 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin("*")
 public class UserController {
 
-    @GetMapping("/")
+    @GetMapping("/customer")
     public String testController(){
         return "this is not locked";
+    }
+
+    @GetMapping("/admin")
+    public String testController2(){
+        return "this is not locked for admin";
     }
 }
