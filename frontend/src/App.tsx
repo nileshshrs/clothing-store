@@ -1,11 +1,15 @@
+import { Routes, Route } from "react-router-dom"
+import Navigation from "./components/Navigation/Navigation"
+import Home from "./pages/Home"
 
 
-function App() {
-
-
+const App = () => {
   return (
     <>
-      hello world
+      <Navigation />
+      <Routes>
+        <Route path="/" element={<Home />} />
+      </Routes>
     </>
   )
 }

@@ -35,6 +35,7 @@ public class JWTService {
                 .collect(Collectors.toList());
 
         String userClaim;
+        long expirationTimeInSeconds = 604800;
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             userClaim = objectMapper.writeValueAsString(auth.getPrincipal());
@@ -48,17 +49,25 @@ public class JWTService {
                 .subject(auth.getName())
                 .claim("user", userClaim)
                 .claim("roles", roles) // Encode roles separately
+                .expiresAt(now.plusSeconds(expirationTimeInSeconds))
                 .build();
+        String generatedToken = jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
 
-        return jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
+        System.out.println("Generated Token: " + generatedToken);
+
+        return generatedToken;
     }
 
     public void setJwtCookie(String token, Users user, HttpServletResponse response) {
         Cookie cookie = new Cookie("jwt", token);
         cookie.setMaxAge(7 * 24 * 60 * 60); // Set the cookie's expiration time (in seconds), adjust as needed
         cookie.setHttpOnly(true);
-        cookie.setSecure(true); // Set to true if your application is served over HTTPS
+        cookie.setSecure(false); // Set to true if your application is served over HTTPS
         cookie.setPath("/");
+
+        System.out.println("setting cookie");
         response.addCookie(cookie);
+        System.out.println(cookie);
+        System.out.println("cookie set");
     }
 }
