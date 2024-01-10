@@ -2,6 +2,7 @@ import  { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { FaSearch, FaShoppingBag } from "react-icons/fa";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
+import { IoBagHandleSharp } from "react-icons/io5";
 import "./Navigation.scss"
 
 
@@ -67,7 +68,7 @@ const Navigation = () => {
                 </nav>
                 <div className='auth-btn'>
                     <Link to="/cart">
-                        <button className='cart-btn'>cart</button>
+                        <button className='cart-btn flex items-center justify-between gap-1'>cart<IoBagHandleSharp /></button>
                     </Link>
                     <Link to="/sign-in">
                         <button className='login-btn'>sign in</button>
