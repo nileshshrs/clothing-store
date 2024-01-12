@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/v1/authentication")
+@RequestMapping("/api/v1/auth")
 @CrossOrigin("*")
 public class AuthenticationController {
 
@@ -71,6 +71,7 @@ public class AuthenticationController {
 
         try {
             Map<String, Object> loginResponse = authenticationService.login(email, password, response);
+
             return ResponseEntity.ok(loginResponse);
         } catch (RuntimeException e) {
             // Handle exception and return an appropriate ResponseEntity
