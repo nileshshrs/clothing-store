@@ -5,7 +5,7 @@ import axios from "axios";
 import { useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Registration = () => {
   const navigate = useNavigate();
@@ -110,7 +110,7 @@ const Registration = () => {
   ///use mutation part testing
 
   return (
-    <section className="nOpQrS">
+    <section className="nOpQrS py-5">
       <form onSubmit={handleSubmit(onSubmit)}>
         <h2>Sign up.</h2>
         <p className="errMsg">{errorMessage}</p>
@@ -180,6 +180,9 @@ const Registration = () => {
         </div>
         <div className="aZpLmN">
           <button type="submit">Sign up</button>
+        </div>
+        <div className="register">
+          Already have an account? <span><Link to="/sign-up">sign in.</Link></span>
         </div>
       </form>
       <ToastContainer />

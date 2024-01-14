@@ -19,7 +19,7 @@ const Login = () => {
 
   }
   return (
-    <section className="nOpQrS">
+    <section className="nOpQrS py-5">
       <form>
         <h2>Sign up.</h2>
         <p className="errMsg">{error}</p>
