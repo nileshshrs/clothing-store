@@ -57,7 +57,7 @@ public class AuthenticationController {
         } catch (RuntimeException e) {
             // Handle the exception (e.g., log it or return a specific error response)
             Map<String, Object> errorResponse = new HashMap<>();
-            errorResponse.put("message", "Registration failed: " + e.getMessage());
+            errorResponse.put("message",  e.getMessage());
 
             return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
         }

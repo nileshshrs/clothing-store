@@ -20,6 +20,17 @@
       font-size: var(--fz-lg);
       font-weight: bold;
     }
+    .errMsg {
+      width: 90%;
+      margin: 0 auto;
+      font-size: var(--fz-xs);
+      font-weight: 400;
+      font-family: var(--font-mono);
+      color: firebrick;
+      background-color: pink;
+      padding: 0 10px;
+      border-radius: 3px;
+    }
     .aZpLmN {
       display: flex;
       flex-direction: column;
@@ -29,9 +40,9 @@
       font-weight: 300;
       width: 90%;
       margin: 0 auto;
-      p{
+      .input-errors {
         font-size: 10px;
-        margin-top:7px;
+        margin-top: 7px;
         color: rgb(206, 11, 11);
         font-family: var(--font-mono);
       }
@@ -66,9 +77,10 @@
 }
 @media (max-width: 512px) {
   .nOpQrS {
-    padding: 0 20px !important;
+    padding: 0 10px !important;
     form {
       width: 90%;
+      padding: 40px 10px;
     }
   }
 }

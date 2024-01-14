@@ -38,6 +38,7 @@ public class AuthenticationService {
 
         Users registeredUsers = new Users();
         registeredUsers.setEmail(email);
+        registeredUsers.setUsername(username);
         registeredUsers.setPassword(encodedPassword);
 
         return userRepository.save(registeredUsers);
