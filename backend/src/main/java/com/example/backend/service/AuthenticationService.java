@@ -72,7 +72,7 @@ public class AuthenticationService {
             return responseMap;
         } catch (AuthenticationException e) {
             // Handle the authentication exception or rethrow a custom exception
-            throw new RuntimeException("Authentication failed: " + e.getMessage());
+            throw new RuntimeException(e.getMessage());
         }
     }
 

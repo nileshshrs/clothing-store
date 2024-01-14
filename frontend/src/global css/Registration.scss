@@ -31,6 +31,22 @@
       padding: 0 10px;
       border-radius: 3px;
     }
+    .register,
+    .forgot-password {
+      display: flex;
+      font-family: var(--font-mono);
+      font-size: var(--fz-xs);
+      color: var(--dark-gray);
+      width: 90%;
+      margin: 0 auto;
+      gap: 0.5rem;
+      a {
+        text-decoration: underline;
+        font-weight: bold;
+        font-family: var(--font-sans);
+        color: var(--dark-black);
+      }
+    }
     .aZpLmN {
       display: flex;
       flex-direction: column;
