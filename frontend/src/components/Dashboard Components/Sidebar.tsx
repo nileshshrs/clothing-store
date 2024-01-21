@@ -3,10 +3,11 @@ import { AiOutlineClose } from 'react-icons/ai'
 import { Link } from 'react-router-dom'
 import { useAuthContext } from '../../context/useAuthContext';
 import { BsGrid1X2, BsArchive, BsPerson } from "react-icons/bs";
-import { BiLogOut, BiBook, BiHome } from "react-icons/bi";
+import { BiLogOut, BiHome } from "react-icons/bi";
 import { useLogout } from '../../context/useLogout';
+import { GiClothes } from "react-icons/gi";
 
-const Sidebar = ({slide}) => {
+const Sidebar = ({ slide }) => {
     const { user } = useAuthContext();
     const { logout } = useLogout();
     const handleLogout = () => {
@@ -35,7 +36,7 @@ const Sidebar = ({slide}) => {
             <nav>
                 <ul>
                     <li>
-                        <Link to="">
+                        <Link to="/dashboard">
                             <BsGrid1X2 />
                             Dashboard
                         </Link>
@@ -47,8 +48,8 @@ const Sidebar = ({slide}) => {
                         </Link>
                     </li>
                     <li>
-                        <Link to="/dashboard/books">
-                            <BiBook /> Books
+                        <Link to="/dashboard/clothes">
+                            <GiClothes /> Clothes
                         </Link>
                     </li>
                     <li>

@@ -91,7 +91,7 @@
             gap: 0.75rem;
             font-family: var(--font-mono);
             font-weight: bold;
-            font-size: var(--fz-sm);
+            font-size: var(--fz-xs);
             transition: 0.2s ease-in;
             &:hover {
               background-color: var(--dark-black);
@@ -129,11 +129,27 @@
   .dashboard-items-container {
     flex-grow: 4;
     .topbar {
-      padding: 0 0.5rem;
+      padding: 0.5rem 0.5rem;
+      .hamburger-btn {
+        display: none;
+        background-color: white;
+        color: var(--dark-black);
+        font-size: 16px;
+        padding: 0;
+      }
       h2 {
-        font-size: var(--fz-xxl);
         font-family: var(--font-sans);
         font-weight: bold;
+        font-size: clamp(2px, 5vw, 2rem);
+      }
+      .add-clothes{
+        font-family: var(--font-sans);
+        font-weight: bold;
+        background-color: var(--dark-black);
+        color: white;
+        padding: 4px 9px;
+        font-size: var(--fz-xs);
+        border-radius: 4px;
       }
     }
   }
@@ -146,14 +162,19 @@
       left: 0;
       transform: translateX(-100%);
       transition: var(--transition);
-      box-shadow: 10px 0px 30px -15px rgba(0, 0, 0, 0.75);
+      box-shadow: 10px 0px 30px -15px var(--navy-shadow);
     }
     .slide {
       transform: translateX(0);
       transition: var(--transition);
     }
     .dashboard-items-container {
-      padding: 0 20px;
+      padding: 0 10px;
+      .topbar {
+        .hamburger-btn {
+          display: block !important;
+        }
+      }
     }
   }
 }
@@ -172,7 +193,12 @@
       transition: var(--transition);
     }
     .dashboard-items-container {
-      padding: 0 20px;
+      padding: 0 10px;
+      .topbar {
+        .hamburger-btn {
+          display: block !important;
+        }
+      }
     }
   }
 }
@@ -192,7 +218,12 @@
       transition: var(--transition);
     }
     .dashboard-items-container {
-      padding: 0 10px;
+      padding: 0;
+      .topbar {
+        .hamburger-btn {
+          display: block !important;
+        }
+      }
     }
   }
 }
