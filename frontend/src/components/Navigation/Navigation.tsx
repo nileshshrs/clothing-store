@@ -133,7 +133,7 @@ const Navigation = () => {
                     </button>
                     <div className='logo'>
                         <Link to="/">
-                            <h1>CUT<span>'S</span></h1>
+                            <h2>CUT<span>'S</span></h2>
                         </Link>
                     </div>
                     <nav className='sidebar-nav'>
