@@ -78,9 +78,6 @@ const Navigation = () => {
                         <li>
                             <Link to="/clothes/women">Women's</Link>
                         </li>
-                        <li>
-                            <Link to="/contact">Contact</Link>
-                        </li>
                         <li className="">
                             <form className="">
                                 <input type="text" placeholder="search..." />
@@ -154,9 +151,6 @@ const Navigation = () => {
                             </li>
                             <li>
                                 <Link to="/clothes/women">Women's</Link>
-                            </li>
-                            <li>
-                                <Link to="/contact">Contact</Link>
                             </li>
                             <li>
                                 {

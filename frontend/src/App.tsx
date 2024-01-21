@@ -4,6 +4,7 @@ import Home from "./pages/Home"
 import Registration from "./pages/Registration"
 import Login from "./pages/Login"
 import Dashboard from "./pages/Dashboard"
+import DashboardContent from "./components/Dashboard Components/DashboardContent/DashboardContent"
 
 
 
@@ -22,7 +23,7 @@ const App = () => {
         <Route path="/sign-up" element={<Registration />} />
         <Route path="/sign-in" element={<Login />} />
         <Route path="/dashboard/*" element={<Dashboard />} >
-
+          <Route index element={<DashboardContent />} />
         </Route>
 
       </Routes>

@@ -6,7 +6,7 @@ import { BsGrid1X2, BsArchive, BsPerson } from "react-icons/bs";
 import { BiLogOut, BiBook, BiHome } from "react-icons/bi";
 import { useLogout } from '../../context/useLogout';
 
-const Sidebar = () => {
+const Sidebar = ({slide}) => {
     const { user } = useAuthContext();
     const { logout } = useLogout();
     const handleLogout = () => {
@@ -15,7 +15,7 @@ const Sidebar = () => {
     };
     return (
         <div className='sidebar-nav'>
-            <button className="close-btn" >
+            <button className="close-btn" onClick={slide}>
                 <AiOutlineClose />
             </button>
             <header>

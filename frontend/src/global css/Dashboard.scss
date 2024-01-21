@@ -1,14 +1,20 @@
 .dashboard-container {
   display: flex;
+  gap: 1.25rem;
+  background-color: white;
+
   .sidebar {
     min-height: 100vh;
     min-width: min(100vw, 250px);
     border-right: 1px solid rgb(211, 209, 209);
     position: sticky;
     top: 0;
+    background-color: white;
     left: 0;
     padding: 10px 20px;
     overflow-y: auto;
+    z-index: 99;
+
     .sidebar-nav {
       position: relative;
       display: flex;
@@ -22,7 +28,7 @@
       header {
         max-width: 100%;
         h2 {
-          padding: 0 3rem;
+          padding: 0 2.25rem;
           font-family: "Felipa";
           font-weight: 700;
           font-size: var(--fz-lg);
@@ -120,7 +126,73 @@
       }
     }
   }
-  .dashboard-item-container {
+  .dashboard-items-container {
     flex-grow: 4;
+    .topbar {
+      padding: 0 0.5rem;
+      h2 {
+        font-size: var(--fz-xxl);
+        font-family: var(--font-sans);
+        font-weight: bold;
+      }
+    }
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  .dashboard-container {
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      transform: translateX(-100%);
+      transition: var(--transition);
+      box-shadow: 10px 0px 30px -15px rgba(0, 0, 0, 0.75);
+    }
+    .slide {
+      transform: translateX(0);
+      transition: var(--transition);
+    }
+    .dashboard-items-container {
+      padding: 0 20px;
+    }
+  }
+}
+@media (min-width: 512px) and (max-width: 768px) {
+  .dashboard-container {
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      transform: translateX(-100%);
+      transition: var(--transition);
+      box-shadow: 10px 0px 30px -15px rgba(0, 0, 0, 0.75);
+    }
+    .slide {
+      transform: translateX(0);
+      transition: var(--transition);
+    }
+    .dashboard-items-container {
+      padding: 0 20px;
+    }
+  }
+}
+
+@media (max-width: 512px) {
+  .dashboard-container {
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      transform: translateX(-100%);
+      transition: var(--transition);
+      box-shadow: 10px 0px 30px -15px rgba(0, 0, 0, 0.75);
+    }
+    .slide {
+      transform: translateX(0);
+      transition: var(--transition);
+    }
+    .dashboard-items-container {
+      padding: 0 10px;
+    }
   }
 }

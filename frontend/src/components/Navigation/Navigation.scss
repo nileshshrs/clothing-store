@@ -41,6 +41,7 @@ header {
         justify-content: space-between;
         align-items: center;
         margin: 0;
+        gap: .75rem;
         li {
           width: 100%;
           a {
@@ -306,7 +307,7 @@ header {
   }
 }
 
-@media (min-width: 768px) and (max-width: 1024px) {
+@media (min-width: 768px) and (max-width: 991px) {
   header {
     .navbar-container {
       padding: 10px 30px !important;
