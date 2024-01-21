@@ -17,6 +17,7 @@ export const useSignin = () => {
         password: password,
       });
 
+      // console.log(response.data)
       if (response.data.user && response.data.token) {
         const {password, ...user } = response.data.user;
         const token= response.data.token

@@ -34,6 +34,8 @@ public class CartController {
 
     @PostMapping("/add-to-cart")
     public ResponseEntity<Object> addToCart(@RequestBody Map<String, Object> requestBody) {
+
+        /// add a way to select color as well
         try {
             Long userId = ((Number) requestBody.get("userId")).longValue();
             Long clothingId = ((Number) requestBody.get("clothingId")).longValue();

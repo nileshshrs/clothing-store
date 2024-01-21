@@ -45,6 +45,8 @@ public class Clothing {
     // Constructors, getters, and setters
 
     // Enum representing the category
+
+    // need to add a description here
     public enum Category {
         Male, Female, Unisex, Other
     }

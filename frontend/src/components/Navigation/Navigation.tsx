@@ -16,6 +16,7 @@ const Navigation = () => {
     const { logout } = useLogout();
     const [nav, setNav] = useState(false);
 
+    console.log(user)
     const [isOpen, setIsOpen] = useState(false);
 
     const toggleDropdown = () => {
@@ -64,7 +65,9 @@ const Navigation = () => {
                 <nav className='navbar'>
                     <ul>
                         <li>
-                            <Link to="/">Home</Link>
+                            {
+                                user && user.user.roles === "admin" ? <Link to="/dashboard">Dashboard</Link> : <Link to="/">Home</Link>
+                            }
                         </li>
                         <li>
                             <Link to="/clothes">Clothes</Link>
@@ -139,7 +142,9 @@ const Navigation = () => {
                     <nav className='sidebar-nav'>
                         <ul>
                             <li>
-                                <Link to="/">Home</Link>
+                                {
+                                    user && user.user.roles === "admin" ? <Link to="/dashboard">Dashboard</Link> : <Link to="/">Home</Link>
+                                }
                             </li>
                             <li>
                                 <Link to="/clothes">Clothes</Link>
