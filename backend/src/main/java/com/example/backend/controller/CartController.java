@@ -17,8 +17,8 @@ import java.util.Map;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/v2/carts")
-@CrossOrigin(origins = {"http://localhost:5173", "http://localhost:5174"})
+@RequestMapping("/api/v1/carts")
+@CrossOrigin("*")
 public class CartController {
 
     private final CartService cartService;
