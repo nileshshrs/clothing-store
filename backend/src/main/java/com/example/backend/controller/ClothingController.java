@@ -59,7 +59,7 @@ public class ClothingController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
     }
-    @GetMapping("update/{id}")
+    @GetMapping("get-by-id/{id}")
     public ResponseEntity<Map<String, Object>> getClothingById(@PathVariable Long id)   {
         Map<String, Object> response = new HashMap<>();
         try{
@@ -73,7 +73,7 @@ public class ClothingController {
             return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
         }
     }
-    @PatchMapping("delete/{id}")
+    @PatchMapping("update/{id}")
     public ResponseEntity<Object> patchClothing(@PathVariable Long id, @RequestBody String patchData) {
         try {
             Clothing patchedClothing = clothingService.patchClothing(id, patchData);

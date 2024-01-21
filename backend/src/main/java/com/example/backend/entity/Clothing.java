@@ -1,11 +1,9 @@
 package com.example.backend.entity;
 
 import jakarta.persistence.*;
-import org.hibernate.engine.jdbc.Size;
 
-import java.awt.*;
+import java.math.BigDecimal;
 import java.util.List;
-
 
 @Entity
 @Table(name = "clothing")
@@ -24,20 +22,23 @@ public class Clothing {
 
     @Column(nullable = false)
     private String type;
+
     @ElementCollection
     @CollectionTable(name = "clothing_size", joinColumns = @JoinColumn(name = "clothing_id"))
     @Column(name = "size")
     private List<String> size;
+
     @ElementCollection
     @CollectionTable(name = "clothing_color", joinColumns = @JoinColumn(name = "clothing_id"))
     @Column(name = "color")
     private List<String> color;
 
     @Column(nullable = false)
-    private Double price;
+    private BigDecimal price;
 
     @Column(nullable = false)
     private Boolean inStock = true;
+
     @Column(nullable = true)
     private String imagePath;
 
@@ -96,11 +97,11 @@ public class Clothing {
         this.color = color;
     }
 
-    public Double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 

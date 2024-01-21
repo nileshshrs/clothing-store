@@ -107,7 +107,7 @@ public class SecurityConfiguration {
                 .cors().configurationSource(corsConfigurationSource()).and()
                 .authorizeHttpRequests(auth -> {
                     auth
-                            .requestMatchers("/api/v1/auth/**","/api/v1/clothing/**").permitAll()
+                            .requestMatchers("/api/v1/auth/**","/api/v1/clothing/**","api/v2/carts/**").permitAll()
                             .requestMatchers("/api/v1/users").hasAnyRole("admin", "user")
                             .requestMatchers("/api/v1/**").hasRole("admin")
                             .anyRequest().authenticated();

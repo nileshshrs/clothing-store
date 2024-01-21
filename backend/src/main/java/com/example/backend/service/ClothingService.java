@@ -36,13 +36,13 @@ public class ClothingService {
         return clothingRepository.save(clothing);
     }
     //get all clothing
-    public List<Clothing> getAllClothing()  {
+    public synchronized List<Clothing> getAllClothing()  {
         return clothingRepository.findAll();
     }
     public Optional<Clothing> getClothingById(long id){
         return clothingRepository.findById(id);
     };
-    public Clothing patchClothing(Long id, String patchData) {
+    public synchronized Clothing patchClothing(Long id, String patchData) {
         Clothing existingClothing = clothingRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Clothing not found with id: " + id));
 
@@ -56,7 +56,7 @@ public class ClothingService {
         }
     }
     @Transactional
-    public Clothing updateClothing(Long id, Clothing updatedClothing) {
+    public synchronized Clothing updateClothing(Long id, Clothing updatedClothing) {
         try {
             Optional<Clothing> optionalClothing = clothingRepository.findById(id);
             if (optionalClothing.isPresent()) {
