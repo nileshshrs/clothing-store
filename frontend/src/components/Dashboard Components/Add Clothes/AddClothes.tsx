@@ -4,17 +4,20 @@ import { AiOutlineClose } from 'react-icons/ai'
 
 const AddClothes = ({ open, form }) => {
   return (
-    <form className={form ? 'clothes-form' : 'clothes-form slide'}>
+    <div className={form ? 'clothes-form' : 'clothes-form open-form'}>
       <button className="close-btn" onClick={open}>
         <AiOutlineClose className="text-lg text-black" />
       </button>
-      <h3>
-        Add Clothes
-      </h3>
-      <div className='input-container'>
+      <form >
 
-      </div>
-    </form>
+        <h3>
+          Add Clothes
+        </h3>
+        <div className='input-container'>
+
+        </div>
+      </form>
+    </div>
   )
 }
 
