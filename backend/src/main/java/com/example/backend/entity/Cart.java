@@ -1,12 +1,11 @@
 package com.example.backend.entity;
 
 import jakarta.persistence.*;
-
 import java.math.BigDecimal;
 
 @Entity
 @Table(name = "carts", uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"user_id", "clothing_id"})
+        @UniqueConstraint(columnNames = {"user_id", "clothing_id", "size"})
 })
 public class Cart {
 
@@ -29,7 +28,10 @@ public class Cart {
     @Column(name = "total")
     private BigDecimal total;
 
-    // Constructors, getters, and setters...
+    @Column(name = "size")  // Added size field
+    private String size;
+
+    // Getters and setters...
 
     public Long getCartId() {
         return cartId;
@@ -71,4 +73,11 @@ public class Cart {
         this.total = total;
     }
 
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
+    }
 }

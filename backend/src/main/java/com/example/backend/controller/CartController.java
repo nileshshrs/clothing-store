@@ -38,6 +38,7 @@ public class CartController {
             Long userId = ((Number) requestBody.get("userId")).longValue();
             Long clothingId = ((Number) requestBody.get("clothingId")).longValue();
             int quantity = (int) requestBody.get("quantity");
+            String size = (String) requestBody.get("size");
 
             Optional<Users> userOptional = userService.getUsersById(userId);
             Optional<Clothing> clothingOptional = clothingService.getClothingById(clothingId);
@@ -46,7 +47,7 @@ public class CartController {
                 Users user = userOptional.get();
                 Clothing clothing = clothingOptional.get();
 
-                Cart cartItem = cartService.addToCart(user, clothing, quantity);
+                Cart cartItem = cartService.addToCart(user, clothing, quantity, size);
 
                 Map<String, Object> responseData = new HashMap<>();
                 responseData.put("cartId", cartItem.getCartId());
@@ -54,6 +55,7 @@ public class CartController {
                 responseData.put("clothingId", clothing.getId());
                 responseData.put("name", clothing.getName());
                 responseData.put("price", clothing.getPrice());
+                responseData.put("size", cartItem.getSize());
                 responseData.put("imagePath", clothing.getImagePath());
                 responseData.put("quantity", cartItem.getQuantity());
                 responseData.put("total", cartItem.getTotal());
@@ -92,16 +94,18 @@ public class CartController {
     }
 
     @PatchMapping("/update/{cartId}")
-    public ResponseEntity<Object> updateCartQuantity(
+    public ResponseEntity<Object> updateCart(
             @PathVariable Long cartId,
-            @RequestBody Map<String, Integer> requestBody
+            @RequestBody Map<String, Object> requestBody
     ) {
         try {
-            Integer newQuantity = requestBody.get("newQuantity");
-            Cart updatedCart = cartService.updateCartQuantity(cartId, newQuantity);
+            Integer newQuantity = (Integer) requestBody.get("newQuantity");
+            String newSize = (String) requestBody.get("newSize");
+
+            Cart updatedCart = cartService.updateCart(cartId, newQuantity, newSize);
 
             Map<String, Object> response = new HashMap<>();
-            response.put("message", "Cart quantity updated successfully");
+            response.put("message", "Cart updated successfully");
             response.put("cartId", updatedCart.getCartId());
             response.put("userId", updatedCart.getUser().getId());
             response.put("clothingId", updatedCart.getClothing().getId());
@@ -110,6 +114,7 @@ public class CartController {
             response.put("imagePath", updatedCart.getClothing().getImagePath());
             response.put("quantity", updatedCart.getQuantity());
             response.put("total", updatedCart.getTotal());
+            response.put("size", updatedCart.getSize());
 
             return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (IllegalArgumentException e) {
@@ -119,6 +124,7 @@ public class CartController {
             return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
         }
     }
+
 
     @DeleteMapping("/delete/{cartId}")
     public ResponseEntity<Object> deleteCart(@PathVariable Long cartId) {

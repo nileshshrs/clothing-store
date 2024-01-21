@@ -28,7 +28,7 @@ public class CartService {
         this.cartRepository = cartRepository;
     }
 
-    public synchronized Cart addToCart(Users user, Clothing clothing, int quantity) {
+    public synchronized Cart addToCart(Users user, Clothing clothing, int quantity, String size) {
         if (user == null || clothing == null || quantity <= 0) {
             throw new IllegalArgumentException("Invalid input parameters");
         }
@@ -47,6 +47,7 @@ public class CartService {
             newCart.setUser(user);
             newCart.setClothing(clothing);
             newCart.setQuantity(quantity);
+            newCart.setSize(size);
             newCart.setTotal(calculateTotal(clothing.getPrice(), quantity));
             return cartRepository.save(newCart);
         }
@@ -67,6 +68,7 @@ public class CartService {
             cartData.put("name", cart.getClothing().getName());
             cartData.put("price", cart.getClothing().getPrice());
             cartData.put("imagePath", cart.getClothing().getImagePath());
+            cartData.put("size", cart.getSize());
             cartData.put("quantity", cart.getQuantity());
             cartData.put("total", cart.getTotal());
 
@@ -91,6 +93,7 @@ public class CartService {
             cartData.put("name", cart.getClothing().getName());
             cartData.put("price", cart.getClothing().getPrice());
             cartData.put("imagePath", cart.getClothing().getImagePath());
+            cartData.put("size", cart.getSize());
             cartData.put("quantity", cart.getQuantity());
             cartData.put("total", cart.getTotal());
 
@@ -100,19 +103,29 @@ public class CartService {
         return cartsData;
     }
 
-    public synchronized Cart updateCartQuantity(Long cartId, int newQuantity) {
+    public synchronized Cart updateCart(Long cartId, Integer newQuantity, String newSize) {
         Optional<Cart> optionalCart = cartRepository.findById(cartId);
 
         if (optionalCart.isPresent()) {
             Cart cart = optionalCart.get();
-            cart.setQuantity(newQuantity);
-            cart.setTotal(calculateTotal(cart.getClothing().getPrice(), newQuantity));
+
+            if (newQuantity != null && newQuantity > 0) {
+                // Update quantity
+                cart.setQuantity(newQuantity);
+                cart.setTotal(calculateTotal(cart.getClothing().getPrice(), newQuantity));
+            }
+
+            if (newSize != null && !newSize.isEmpty()) {
+                // Update size
+                cart.setSize(newSize);
+            }
 
             return cartRepository.save(cart);
         } else {
             throw new IllegalArgumentException("Cart not found with ID: " + cartId);
         }
     }
+
 
     public synchronized void deleteCart(Long cartId) {
         Optional<Cart> optionalCart = cartRepository.findById(cartId);
