@@ -4,29 +4,85 @@
   top: 0;
   right: 0;
   z-index: 99;
-  background-color: white;
+  background-color: var(--light-gray);
   min-width: min(100vw, 390px);
   box-shadow: -10px 0px 30px -15px var(--navy-shadow);
   transform: translateX(0);
   transition: var(--transition);
   padding: 0.5rem;
-  .close-btn {
-    background-color: white !important;
+  overflow-y: auto;
+  height: 100%;
+  .close-btns {
+    background-color: var(--light-gray);
     color: var(--dark-black) !important;
     font-size: 22px;
     position: absolute;
-    right: 2%;
+    right: 2.5%;
     top: 1%;
   }
-  h3 {
-    font-family: var(--font-sans);
-    font-weight: bold;
-    width: 100%;
-    padding: .5rem 0.75rem;
-    font-size: var(--fz-md);
-  }
-  .input-container{
-    max-width: 100%;
+  form {
+    padding: 0.5rem 0.75rem;
+    min-height: 100%;
+    h3 {
+      font-family: var(--font-sans);
+      font-weight: bold;
+      width: 100%;
+      padding: 0.5rem 0.75rem;
+      font-size: var(--fz-md);
+    }
+    .input-container {
+      max-width: 100%;
+      padding: 0.5rem 0.75rem;
+      display: grid;
+      gap: 0.6rem;
+      .custom-input {
+        label {
+          font-family: var(--font-mono);
+          font-size: var(--fz-xs);
+          color: var(--dark-gray);
+        }
+        display: grid;
+        input[type="text"] {
+          border-bottom: 0.5px solid var(--dark-black);
+          background-color: var(--light-gray);
+          color: var(--dark-black);
+          font-weight: 500;
+          font-family: var(--font-sans);
+          padding: 0 0.75rem;
+          width: 100%;
+          outline: none;
+          &:focus {
+            outline: none;
+          }
+        }
+        textarea {
+          border: 0.5px solid var(--dark-black);
+          outline: none;
+          font-weight: 500;
+          font-family: var(--font-sans);
+          background-color: var(--light-gray);
+          padding: 5px;
+        }
+        button{
+          background-color: var(--dark-black);
+          color: white;
+          font-size: var(--fz-xs);
+          padding: 4px;
+          border-radius: 3px;
+          font-weight: bold;
+          font-family: var(--font-mono);
+        }
+      }
+      .select {
+        display: grid;
+        gap: 0.5rem;
+        label {
+          font-family: var(--font-mono);
+          font-size: var(--fz-xs);
+          color: var(--dark-gray);
+        }
+      }
+    }
   }
 }
 .open-form {

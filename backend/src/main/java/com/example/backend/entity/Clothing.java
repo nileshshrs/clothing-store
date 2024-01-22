@@ -43,7 +43,8 @@ public class Clothing {
     private String imagePath;
 
     // Constructors, getters, and setters
-
+    @Column(name = "description",columnDefinition = "TEXT", nullable = true)
+    private String description;
     // Enum representing the category
 
     // need to add a description here
@@ -121,5 +122,13 @@ public class Clothing {
 
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

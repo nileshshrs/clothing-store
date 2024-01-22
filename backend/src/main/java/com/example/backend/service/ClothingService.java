@@ -69,6 +69,7 @@ public class ClothingService {
                 existingClothing.setInStock(updatedClothing.getInStock());
                 existingClothing.setImagePath(updatedClothing.getImagePath());
                 existingClothing.setType(updatedClothing.getType());
+                existingClothing.setDescription(updatedClothing.getDescription());
 
                 return clothingRepository.save(existingClothing);
             } else {
