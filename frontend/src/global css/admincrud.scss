@@ -36,14 +36,23 @@
       display: grid;
       gap: 0.6rem;
       .custom-input {
+        p {
+          font-size: var(--fz-xs);
+          color: firebrick;
+          font-family: var(--font-sans);
+          font-weight: 500;
+          padding: 0 5px;
+        }
         label {
           font-family: var(--font-mono);
           font-size: var(--fz-xs);
           color: var(--dark-gray);
         }
         display: grid;
-        input[type="text"] {
-          border-bottom: 0.5px solid var(--dark-black);
+        input[type="text"],
+        input[type="number"] {
+          border: 0.5px solid var(--dark-black);
+          border-radius: 3.5px;
           background-color: var(--light-gray);
           color: var(--dark-black);
           font-weight: 500;
@@ -63,7 +72,7 @@
           background-color: var(--light-gray);
           padding: 5px;
         }
-        button{
+        button {
           background-color: var(--dark-black);
           color: white;
           font-size: var(--fz-xs);
@@ -75,7 +84,13 @@
       }
       .select {
         display: grid;
-        gap: 0.5rem;
+        p {
+          font-size: var(--fz-xs);
+          color: firebrick;
+          font-family: var(--font-sans);
+          font-weight: 500;
+          padding: 0 5px;
+        }
         label {
           font-family: var(--font-mono);
           font-size: var(--fz-xs);

@@ -1,65 +1,17 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import "../../../global css/admincrud.scss";
 import { AiOutlineClose } from 'react-icons/ai';
 import Select from 'react-select';
 import { MdFileUpload } from "react-icons/md";
+import { useForm, Controller } from 'react-hook-form';
 
 const AddClothes = ({ open, form }) => {
-  const categoryOptions = [
-    { value: 'Male', label: 'Male' },
-    { value: 'Female', label: 'Female' },
-    { value: 'Unisex', label: 'Unisex' },
-    { value: 'Other', label: 'Other' },
-    // Add more categories as needed
-  ];
 
-  const typeOptions = [
-    { value: 'T-Shirt', label: 'T-Shirt' },
-    { value: 'Jeans', label: 'Jeans' },
-    // Add more types as needed
-  ];
-
-  const sizeOptions = [
-    { value: 'S', label: 'S' },
-    { value: 'M', label: 'M' },
-    { value: 'L', label: 'L' },
-    // Add more sizes as needed
-  ];
-
-  const colorOptions = [
-    { value: 'Red', label: 'Red' },
-    { value: 'Blue', label: 'Blue' },
-    // Add more colors as needed
-  ];
-
-  const [selectedCategory, setSelectedCategory] = useState([]);
-  const [selectedType, setSelectedType] = useState([]);
-  const [selectedSize, setSelectedSize] = useState([]);
-  const [selectedColor, setSelectedColor] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null);
   const [isImageSelected, setIsImageSelected] = useState(false);
 
   const imageInputRef = useRef(null);
 
-  const handleCategories = (selectedOptions) => {
-    const selectedValues = selectedOptions.map((option) => option.value);
-    setSelectedCategory(selectedValues);
-  };
-
-  const handleTypes = (selectedOptions) => {
-    const selectedValues = selectedOptions.map((option) => option.value);
-    setSelectedType(selectedValues);
-  };
-
-  const handleSize = (selectedOptions) => {
-    const selectedValues = selectedOptions.map((option) => option.value);
-    setSelectedSize(selectedValues);
-  };
-
-  const handleColor = (selectedOptions) => {
-    const selectedValues = selectedOptions.map((option) => option.value);
-    setSelectedColor(selectedValues);
-  };
 
   const handleImageClick = () => {
     imageInputRef.current.click();
@@ -74,6 +26,44 @@ const AddClothes = ({ open, form }) => {
   const handleUploadClick = () => {
     // Implement your upload logic here
     console.log('Upload button clicked');
+  };
+  const categoryOptions = [
+    { value: 'Male', label: 'Male' },
+    { value: 'Female', label: 'Female' },
+    { value: 'Unisex', label: 'Unisex' },
+    { value: 'Other', label: 'Other' },
+  ];
+
+  const typeOptions = [
+    { value: 'T-Shirt', label: 'T-Shirt' },
+    { value: 'Jeans', label: 'Jeans' },
+  ];
+
+  const sizeOptions = [
+    { value: 'S', label: 'S' },
+    { value: 'M', label: 'M' },
+    { value: 'L', label: 'L' },
+  ];
+
+  const colorOptions = [
+    { value: 'Red', label: 'Red' },
+    { value: 'Blue', label: 'Blue' },
+  ];
+
+  const { handleSubmit, control, setValue, register, formState: { errors } } = useForm();
+
+  const onSubmit = (data) => {
+    // Implement your submit logic here
+    console.log(data);
+    const selectedCategories = data.category.map((item) => item.value);
+    const selectedSizes = data.size.map((item) => item.value);
+    const selectedTypes = data.type.map((item) => item.value);
+    const selectedColor = data.color.map((item) => item.value);
+
+    console.log("Selected Categories:", selectedCategories);
+    console.log("Selected Sizes:", selectedSizes);
+    console.log("Selected Types:", selectedTypes);
+    console.log("Selected Color:", selectedColor);
   };
 
   const style1 = {
@@ -103,67 +93,125 @@ const AddClothes = ({ open, form }) => {
     }),
   };
 
-
   return (
     <div className={form ? 'clothes-form' : 'clothes-form open-form'}>
       <button className="close-btns" onClick={open}>
         <AiOutlineClose className="text-lg text-black" />
       </button>
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <h3>Add Clothes</h3>
         <div className='input-container'>
-          <div className='custom-input'>
-            <label htmlFor="clothes-name">Name*</label>
-            <input type="text" id="clothes-name" />
-          </div>
+          <Controller
+            name="clothesName"
+            control={control}
+            defaultValue=""
+            rules={{ required: 'Name is required' }}
+            render={({ field }) => (
+              <div className='custom-input'>
+                <label htmlFor="clothes-name">Name*</label>
+                <input {...field} type="text" id="clothes-name" />
+                {errors.clothesName && <p>{errors.clothesName.message}</p>}
+              </div>
+            )}
+          />
+
+          <Controller
+            name="price"
+            control={control}
+            defaultValue=""
+            rules={{ required: 'Price is required' }}
+            render={({ field }) => (
+              <div className='custom-input'>
+                <label htmlFor="price">Price*</label>
+                <input {...field} type="number" id="price" />
+                {errors.price && <p>{errors.price.message}</p>}
+              </div>
+            )}
+          />
 
           <div className='select'>
             <label>Category*</label>
-            <Select
-              placeholder="select category"
-              isMulti
-              onChange={handleCategories}
-              options={categoryOptions}
-              styles={style1}
+            <Controller
+              name="category"
+              control={control}
+              defaultValue={[]}
+              rules={{ required: 'Category is required' }}
+              render={({ field }) => (
+                <Select
+                  {...field}
+                  placeholder="select category"
+                  isMulti
+                  options={categoryOptions}
+                  styles={style1}
+                />
+              )}
             />
+            {errors.category && <p>{errors.category.message}</p>}
           </div>
 
           <div className='select'>
             <label>Type*</label>
-            <Select
-              placeholder="select types"
-              isMulti
-              onChange={handleTypes}
-              options={typeOptions}
-              styles={style1}
+            <Controller
+              name="type"
+              control={control}
+              defaultValue={[]}
+              rules={{ required: 'Type is required' }}
+              render={({ field }) => (
+                <Select
+                  {...field}
+                  placeholder="select types"
+                  isMulti
+                  options={typeOptions}
+                  styles={style1}
+                />
+              )}
             />
+            {errors.type && <p>{errors.type.message}</p>}
           </div>
 
           <div className='select'>
             <label>Size*</label>
-            <Select
-              placeholder="select size"
-              isMulti
-              onChange={handleSize}
-              options={sizeOptions}
-              styles={style1}
+            <Controller
+              name="size"
+              control={control}
+              defaultValue={[]}
+              rules={{ required: 'Size is required' }}
+              render={({ field }) => (
+                <Select
+                  {...field}
+                  placeholder="select size"
+                  isMulti
+                  options={sizeOptions}
+                  styles={style1}
+                />
+              )}
             />
+            {errors.size && <p>{errors.size.message}</p>}
           </div>
 
           <div className='select'>
             <label>Color*</label>
-            <Select
-              placeholder="select color"
-              isMulti
-              onChange={handleColor}
-              options={colorOptions}
-              styles={style1}
+            <Controller
+              name="color"
+              control={control}
+              defaultValue={[]}
+              rules={{ required: 'Color is required' }}
+              render={({ field }) => (
+                <Select
+                  {...field}
+                  placeholder="select color"
+                  isMulti
+                  options={colorOptions}
+                  styles={style1}
+                />
+              )}
             />
+            {errors.color && <p>{errors.color.message}</p>}
           </div>
 
-          <div className="custom-input">
+          <div className='custom-input'>
             <label htmlFor="imgs">Images*</label>
-            <div onClick={handleImageClick} className="flex items-center justify-center border py-1 border-black rounded-[4px]">
+            <div className="flex items-center justify-center border py-1 border-black rounded-[4px]">
               <img src={selectedImage || 'default_image_url'} alt="Preview" className="" width={"90px"} height={"140px"} />
               <input
                 type="file"
@@ -179,15 +227,16 @@ const AddClothes = ({ open, form }) => {
               p-[3px] flex justify-center items-center gap-3'><MdFileUpload /><span>upload</span></button>
             )}
           </div>
+
           <div className='custom-input'>
             <label htmlFor="description">Description*</label>
             <textarea name="" id="description" />
           </div>
+
           <div className='custom-input'>
-            <button>Submit</button>
+            <button type="submit">Submit</button>
           </div>
         </div>
-
       </form>
     </div>
   );
