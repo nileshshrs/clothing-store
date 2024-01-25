@@ -1,3 +1,19 @@
+.clothes-form::-webkit-scrollbar-thumb {
+  background-color: var(--dark-slate);
+  border: 2px solid var(--navy);
+  border-radius: 10px;
+}
+.clothes-form::-webkit-scrollbar {
+  width: 0;
+}
+.clothes-form::-webkit-scrollbar-track {
+  background: transparent;
+}
+.clothes-form::selection {
+  background-color: var(--lightest-navy);
+  color: var(--lightest-slate);
+}
+
 .clothes-form {
   min-height: 100vh;
   position: fixed;

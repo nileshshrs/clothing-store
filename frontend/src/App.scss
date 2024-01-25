@@ -1,0 +1,75 @@
+.our-story {
+  display: grid;
+  padding: 3rem 2rem;
+  place-items: center;
+  place-content: center;
+  gap: 1.5rem;
+  h4 {
+    font-weight: bold;
+    font-family: var(--font-mono);
+    font-size: var(--fz-sm);
+    position: relative;
+    text-align: center;
+    &::after {
+      position: absolute;
+      height: 1.5px;
+      content: "";
+      background-color: var(--dark-black);
+      bottom: -25%;
+      left: 0;
+      width: 100%;
+    }
+  }
+  h2 {
+    font-family: var(--font-sans);
+    font-weight: bold;
+    font-size: clamp(26px, 5vw, var(--fz-heading));
+    text-align: center;
+    max-width: 750px;
+    margin: 0 auto;
+  }
+}
+.clothing-section {
+  padding: 2rem 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  place-content: center;
+  place-items: center;
+  gap: 0.75rem;
+  .cards-container {
+    position: relative;
+    overflow: hidden;
+    transition: 0.2s ease-in;
+    z-index: 999;
+
+    img {
+      transition: 0.3s ease-in;
+    }
+    h3 {
+      position: absolute;
+      color: white;
+      bottom: 8%;
+      left: 10%;
+      font-family: var(--font-sans);
+      font-weight: bold;
+      text-decoration: underline;
+      z-index: 999;
+    }
+    &:hover {
+      img {
+        transform: scale(1.04);
+        overflow: hidden;
+      }
+    }
+    &::after{
+        content: "";
+        height: 100%;
+        width: 100%;
+        background-color: var(--dark-black);
+        opacity: .3;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+  }
+}

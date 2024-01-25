@@ -31,7 +31,7 @@
   --fz-lg: 18px;
   --fz-xl: 20px;
   --fz-xxl: 25px;
-  --fz-heading: 32px;
+  --fz-heading: 35px;
   --border-radius: 4px;
   --nav-height: 100px;
   --nav-scroll-height: 70px;
@@ -54,21 +54,7 @@
 html {
   overflow-x: hidden;
   scroll-behavior: smooth;
-  ::-webkit-scrollbar-thumb {
-    background-color: var(--dark-slate);
-    border: 2px solid var(--navy);
-    border-radius: 10px;
-  }
-  ::-webkit-scrollbar {
-    width: 5px;
-  }
-  ::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  ::selection {
-    background-color: var(--lightest-navy);
-    color: var(--lightest-slate);
-  }
+  
 }
 #root {
   h1,
@@ -78,6 +64,5 @@ html {
   h5,
   h6 {
     line-height: 1.1;
-    color: var(--dark-black);
   }
 }

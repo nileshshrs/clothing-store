@@ -1,0 +1,57 @@
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  place-content: center;
+  place-items: center;
+  .clothes-card {
+    display: grid;
+    gap: 0.5rem;
+    .card-img {
+      position: relative;
+
+      .quick-add {
+        font-family: var(--font-mono);
+        font-size: var(--fz-sm);
+        font-weight: bold;
+        position: absolute;
+        top: 100%; /* Initially, set it below the image */
+        background-color: var(--dark-black);
+        color: white;
+        width: 100%;
+        padding: 5px;
+        opacity: 0; /* Initially, set it invisible */
+        transition: transform 0.2s ease-in, opacity 0.2s ease-in; /* Add a smooth transition for transform and opacity */
+      }
+
+      &:hover .quick-add {
+        transform: translateY(-100%); /* Move it upwards on hover */
+        opacity: 1; /* Make it visible on hover */
+      }
+    }
+    .card-title {
+      display: grid;
+      gap: 0.5rem;
+      span {
+        color: var(--dark-gray);
+        font-size: var(--fz-xs);
+        font-family: var(--font-mono);
+        width: 100%;
+      }
+      h3 {
+        color: var(--dark-black);
+        font-family: var(--font-sans);
+        font-size: var(--fz-md);
+        font-weight: bold !important;
+        width: 100%;
+      }
+      p {
+        color: var(--dark-black);
+        font-family: var(--font-sans);
+        font-size: var(--fz-sm);
+        font-weight: bold !important;
+        width: 100%;
+      }
+    }
+  }
+}
