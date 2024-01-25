@@ -10,7 +10,7 @@ const Tabview2 = () => {
             <img
               src="https://cdn.shopify.com/s/files/1/1368/3463/files/BLACK-FEATHERLIGHT-PIMA-TEE_768x_crop_center@2x.progressive.jpg?v=1705358729"
               alt=""
-              className="max-w-[250px] min-h-[370px]"
+              className="max-w-[270px] min-h-[370px]"
             />
           </Link>
           <button className="quick-add">Quick Add</button>
@@ -27,7 +27,7 @@ const Tabview2 = () => {
             <img
               src="https://cdn.shopify.com/s/files/1/1368/3463/files/BLACK-FEATHERLIGHT-PIMA-TEE_768x_crop_center@2x.progressive.jpg?v=1705358729"
               alt=""
-              className="max-w-[250px] min-h-[370px]"
+              className="max-w-[270px] min-h-[370px]"
             />
           </Link>
           <button className="quick-add">Quick Add</button>
@@ -44,7 +44,7 @@ const Tabview2 = () => {
             <img
               src="https://cdn.shopify.com/s/files/1/1368/3463/files/BLACK-FEATHERLIGHT-PIMA-TEE_768x_crop_center@2x.progressive.jpg?v=1705358729"
               alt=""
-              className="max-w-[250px] min-h-[370px]"
+              className="max-w-[270px] min-h-[370px]"
             />
           </Link>
           <button className="quick-add">Quick Add</button>
@@ -61,7 +61,7 @@ const Tabview2 = () => {
             <img
               src="https://cdn.shopify.com/s/files/1/1368/3463/files/BLACK-FEATHERLIGHT-PIMA-TEE_768x_crop_center@2x.progressive.jpg?v=1705358729"
               alt=""
-              className="max-w-[250px] min-h-[370px]"
+              className="max-w-[270px] min-h-[370px]"
             />
           </Link>
           <button className="quick-add">Quick Add</button>
@@ -78,7 +78,7 @@ const Tabview2 = () => {
             <img
               src="https://cdn.shopify.com/s/files/1/1368/3463/files/BLACK-FEATHERLIGHT-PIMA-TEE_768x_crop_center@2x.progressive.jpg?v=1705358729"
               alt=""
-              className="max-w-[250px] min-h-[370px]"
+              className="max-w-[270px] min-h-[370px]"
             />
           </Link>
           <button className="quick-add">Quick Add</button>
