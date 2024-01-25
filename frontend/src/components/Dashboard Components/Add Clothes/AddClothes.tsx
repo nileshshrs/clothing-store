@@ -1,17 +1,16 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState } from "react";
 import "../../../global css/admincrud.scss";
-import { AiOutlineClose } from 'react-icons/ai';
-import Select from 'react-select';
+import { AiOutlineClose } from "react-icons/ai";
+import Select from "react-select";
 import { MdFileUpload } from "react-icons/md";
-import { useForm, Controller } from 'react-hook-form';
+import { useForm, Controller } from "react-hook-form";
+import axios from "axios";
 
 const AddClothes = ({ open, form }) => {
-
   const [selectedImage, setSelectedImage] = useState(null);
   const [isImageSelected, setIsImageSelected] = useState(false);
 
   const imageInputRef = useRef(null);
-
 
   const handleImageClick = () => {
     imageInputRef.current.click();
@@ -25,45 +24,71 @@ const AddClothes = ({ open, form }) => {
 
   const handleUploadClick = () => {
     // Implement your upload logic here
-    console.log('Upload button clicked');
+    console.log("Upload button clicked");
   };
   const categoryOptions = [
-    { value: 'Male', label: 'Male' },
-    { value: 'Female', label: 'Female' },
-    { value: 'Unisex', label: 'Unisex' },
-    { value: 'Other', label: 'Other' },
+    { value: "Male", label: "Male" },
+    { value: "Female", label: "Female" },
+    { value: "Unisex", label: "Unisex" },
+    { value: "Other", label: "Other" },
   ];
 
   const typeOptions = [
-    { value: 'T-Shirt', label: 'T-Shirt' },
-    { value: 'Jeans', label: 'Jeans' },
+    { value: "T-Shirt", label: "T-Shirt" },
+    { value: "Jeans", label: "Jeans" },
   ];
 
   const sizeOptions = [
-    { value: 'S', label: 'S' },
-    { value: 'M', label: 'M' },
-    { value: 'L', label: 'L' },
+    { value: "S", label: "S" },
+    { value: "M", label: "M" },
+    { value: "L", label: "L" },
   ];
 
   const colorOptions = [
-    { value: 'Red', label: 'Red' },
-    { value: 'Blue', label: 'Blue' },
+    { value: "Red", label: "Red" },
+    { value: "Blue", label: "Blue" },
   ];
 
-  const { handleSubmit, control, setValue, register, formState: { errors } } = useForm();
+  const {
+    handleSubmit,
+    control,
+    setValue,
+    register,
+    formState: { errors },
+  } = useForm();
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     // Implement your submit logic here
-    console.log(data);
-    const selectedCategories = data.category.map((item) => item.value);
-    const selectedSizes = data.size.map((item) => item.value);
-    const selectedTypes = data.type.map((item) => item.value);
-    const selectedColor = data.color.map((item) => item.value);
+    // console.log(data);
 
-    console.log("Selected Categories:", selectedCategories);
-    console.log("Selected Sizes:", selectedSizes);
-    console.log("Selected Types:", selectedTypes);
-    console.log("Selected Color:", selectedColor);
+    const Data = {
+      name: data.clothesName,
+      price: parseFloat(data.price), // Use parseFloat for the price
+      category: data.category.value,
+      type: data.type.value,
+      size: data.size.map((item) => item.value),
+      color: data.color.map((item) => item.value),
+      imagePath: null,
+      description: data.description,
+    };
+    console.log(Data);
+    try {
+      const res = await axios.post(
+        "http://localhost:8080/api/v1/clothing/create",
+        Data
+      );
+      console.log(res.data);
+
+      setValue("clothesName", "");
+      setValue("price", "");
+      setValue("category", []);
+      setValue("type", []);
+      setValue("size", []);
+      setValue("color", []);
+      setValue("description", "");
+    } catch (errors) {
+      console.log(errors);
+    }
   };
 
   const style1 = {
@@ -82,32 +107,32 @@ const AddClothes = ({ open, form }) => {
     }),
     option: (base, state) => ({
       ...base,
-      backgroundColor: 'white',
+      backgroundColor: "white",
       color: "black",
       fontFamily: "sans-serif",
       fontSize: "12px",
       fontWeight: "bold",
-      ':hover': {
-        backgroundColor: '#c0c0c0',
+      ":hover": {
+        backgroundColor: "#c0c0c0",
       },
     }),
   };
 
   return (
-    <div className={form ? 'clothes-form' : 'clothes-form open-form'}>
+    <div className={form ? "clothes-form" : "clothes-form open-form"}>
       <button className="close-btns" onClick={open}>
         <AiOutlineClose className="text-lg text-black" />
       </button>
       <form onSubmit={handleSubmit(onSubmit)}>
         <h3>Add Clothes</h3>
-        <div className='input-container'>
+        <div className="input-container">
           <Controller
             name="clothesName"
             control={control}
             defaultValue=""
-            rules={{ required: 'Name is required' }}
+            rules={{ required: "Name is required" }}
             render={({ field }) => (
-              <div className='custom-input'>
+              <div className="custom-input">
                 <label htmlFor="clothes-name">Name*</label>
                 <input {...field} type="text" id="clothes-name" />
                 {errors.clothesName && <p>{errors.clothesName.message}</p>}
@@ -119,9 +144,9 @@ const AddClothes = ({ open, form }) => {
             name="price"
             control={control}
             defaultValue=""
-            rules={{ required: 'Price is required' }}
+            rules={{ required: "Price is required" }}
             render={({ field }) => (
-              <div className='custom-input'>
+              <div className="custom-input">
                 <label htmlFor="price">Price*</label>
                 <input {...field} type="number" id="price" />
                 {errors.price && <p>{errors.price.message}</p>}
@@ -129,18 +154,17 @@ const AddClothes = ({ open, form }) => {
             )}
           />
 
-          <div className='select'>
+          <div className="select">
             <label>Category*</label>
             <Controller
               name="category"
               control={control}
               defaultValue={[]}
-              rules={{ required: 'Category is required' }}
+              rules={{ required: "Category is required" }}
               render={({ field }) => (
                 <Select
                   {...field}
                   placeholder="select category"
-                  isMulti
                   options={categoryOptions}
                   styles={style1}
                 />
@@ -149,18 +173,17 @@ const AddClothes = ({ open, form }) => {
             {errors.category && <p>{errors.category.message}</p>}
           </div>
 
-          <div className='select'>
+          <div className="select">
             <label>Type*</label>
             <Controller
               name="type"
               control={control}
               defaultValue={[]}
-              rules={{ required: 'Type is required' }}
+              rules={{ required: "Type is required" }}
               render={({ field }) => (
                 <Select
                   {...field}
                   placeholder="select types"
-                  isMulti
                   options={typeOptions}
                   styles={style1}
                 />
@@ -169,13 +192,13 @@ const AddClothes = ({ open, form }) => {
             {errors.type && <p>{errors.type.message}</p>}
           </div>
 
-          <div className='select'>
+          <div className="select">
             <label>Size*</label>
             <Controller
               name="size"
               control={control}
               defaultValue={[]}
-              rules={{ required: 'Size is required' }}
+              rules={{ required: "Size is required" }}
               render={({ field }) => (
                 <Select
                   {...field}
@@ -189,13 +212,13 @@ const AddClothes = ({ open, form }) => {
             {errors.size && <p>{errors.size.message}</p>}
           </div>
 
-          <div className='select'>
+          <div className="select">
             <label>Color*</label>
             <Controller
               name="color"
               control={control}
               defaultValue={[]}
-              rules={{ required: 'Color is required' }}
+              rules={{ required: "Color is required" }}
               render={({ field }) => (
                 <Select
                   {...field}
@@ -209,37 +232,63 @@ const AddClothes = ({ open, form }) => {
             {errors.color && <p>{errors.color.message}</p>}
           </div>
 
-          <div className='custom-input'>
+          <div className="custom-input">
             <label htmlFor="imgs">Images*</label>
-            <div className="flex items-center justify-center border py-1 border-black rounded-[4px]">
-              <img src={selectedImage || 'default_image_url'} alt="Preview" className="" width={"90px"} height={"140px"} />
+            <div
+              className="flex items-center justify-center border py-1 border-black rounded-[4px]"
+              onClick={handleImageClick}
+            >
+              <img
+                src={selectedImage || "default_image_url"}
+                alt="Preview"
+                className=""
+                width={"90px"}
+                height={"140px"}
+              />
               <input
                 type="file"
                 ref={imageInputRef}
                 hidden
                 onChange={handleImageChange}
                 accept="image/*"
-                id='imgs'
+                id="imgs"
               />
             </div>
             {isImageSelected && (
-              <button onClick={handleUploadClick} className='bg-black text-white mt-1 rounded-[2px] font-sans text-md font-semibold
-              p-[3px] flex justify-center items-center gap-3'><MdFileUpload /><span>upload</span></button>
+              <button
+                type="button"
+                onClick={handleUploadClick}
+                className="bg-black text-white mt-1 rounded-[2px] font-sans text-md font-semibold
+              p-[3px] flex justify-center items-center gap-3"
+              >
+                <MdFileUpload />
+                <span>upload</span>
+              </button>
             )}
           </div>
 
-          <div className='custom-input'>
-            <label htmlFor="description">Description*</label>
-            <textarea name="" id="description" />
+          <div className="custom-input">
+            <Controller
+              name="description"
+              control={control}
+              defaultValue=""
+              render={({ field }) => (
+                <div className="custom-input">
+                  <label htmlFor="description">Description*</label>
+                  <textarea {...field} name="description" id="description" />
+                  {errors.description && <p>{errors.description.message}</p>}
+                </div>
+              )}
+            />
           </div>
 
-          <div className='custom-input'>
+          <div className="custom-input">
             <button type="submit">Submit</button>
           </div>
         </div>
       </form>
     </div>
   );
-}
+};
 
 export default AddClothes;
