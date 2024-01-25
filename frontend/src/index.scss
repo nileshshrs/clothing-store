@@ -54,6 +54,21 @@
 html {
   overflow-x: hidden;
   scroll-behavior: smooth;
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--dark-slate);
+    border: 3px solid var(--navy);
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--navy);
+  }
+  ::selection {
+    background-color: var(--lightest-navy);
+    color: var(--lightest-slate);
+  }
   
 }
 #root {
