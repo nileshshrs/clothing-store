@@ -28,6 +28,9 @@ public class AuthenticationService {
     private AuthenticationManager authenticationManager;
     @Autowired
     private JWTService jwtService;
+    @Autowired
+    private EmailService emailService;
+
 
 
     public Users createrUser(String email, String username, String password ){
@@ -40,6 +43,10 @@ public class AuthenticationService {
         registeredUsers.setEmail(email);
         registeredUsers.setUsername(username);
         registeredUsers.setPassword(encodedPassword);
+
+        String apiBaseUrl = "http://localhost:5173";  // Adjust accordingly
+        String verificationLink = apiBaseUrl + "/verification?email=" + email;
+        emailService.sendVerificationEmail(email, verificationLink);
 
         return userRepository.save(registeredUsers);
     }

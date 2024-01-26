@@ -5,6 +5,8 @@ import Registration from "./pages/Registration"
 import Login from "./pages/Login"
 import Dashboard from "./pages/Dashboard"
 import DashboardContent from "./components/Dashboard Components/DashboardContent/DashboardContent"
+import verification from "./pages/verification"
+import Verify from "./pages/Verify"
 
 
 
@@ -26,6 +28,7 @@ const App = () => {
         <Route path="/dashboard/*" element={<Dashboard />} >
           <Route index element={<DashboardContent />} />
         </Route>
+        <Route path="/:verification" element={<Verify />} />
 
       </Routes>
     </>

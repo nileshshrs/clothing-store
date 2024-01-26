@@ -33,6 +33,9 @@ public class Users {
     @Column(name = "image")
     private String image;
 
+    @Column(name = "verification")
+    private boolean verified= false;
+
     // Getters and setters...
 
     public Long getId() {
@@ -89,5 +92,13 @@ public class Users {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public boolean isVerified() {
+        return verified;
+    }
+
+    public void setVerified(boolean verified) {
+        this.verified = verified;
     }
 }

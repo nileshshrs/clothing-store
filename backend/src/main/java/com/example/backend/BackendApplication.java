@@ -37,6 +37,7 @@ public class BackendApplication {
                 admin.setUsername("admin");
                 admin.setPassword(passwordEncoder.encode("securepassword"));
                 admin.setRoles("admin");
+                admin.setVerified(true);
 
                 userRepository.save(admin);
             } catch (Exception e) {
