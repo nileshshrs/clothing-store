@@ -22,6 +22,7 @@ public class RSAKeyProperties {
         return publicKey;
     }
 
+
     public void setPublicKey(RSAPublicKey publicKey) {
         this.publicKey = publicKey;
     }

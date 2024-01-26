@@ -1,7 +1,6 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import "../../../global css/Tabview.scss";
-
+import React from 'react'
+import { Link } from 'react-router-dom'
+import "../../../../global css/Tabview.scss"
 
 const Tabview2 = () => {
   return (
@@ -10,7 +9,7 @@ const Tabview2 = () => {
         <div className="card-img">
           <Link to="">
             <img
-              src="https://cdn.shopify.com/s/files/1/1368/3463/files/BLACK-FEATHERLIGHT-PIMA-TEE_768x_crop_center@2x.progressive.jpg?v=1705358729"
+              src="https://cdn.shopify.com/s/files/1/1368/3463/files/PLUM_Sweetheart-Tank-3_768x_crop_center@2x.progressive.jpg?v=1705503977"
               alt=""
               className="max-w-[270px] min-h-[370px]"
             />
@@ -27,7 +26,7 @@ const Tabview2 = () => {
         <div className="card-img">
           <Link to="">
             <img
-              src="https://cdn.shopify.com/s/files/1/1368/3463/files/BLACK-FEATHERLIGHT-PIMA-TEE_768x_crop_center@2x.progressive.jpg?v=1705358729"
+              src="https://cdn.shopify.com/s/files/1/1368/3463/files/PLUM_Sweetheart-Tank-3_768x_crop_center@2x.progressive.jpg?v=1705503977"
               alt=""
               className="max-w-[270px] min-h-[370px]"
             />
@@ -44,7 +43,7 @@ const Tabview2 = () => {
         <div className="card-img">
           <Link to="">
             <img
-              src="https://cdn.shopify.com/s/files/1/1368/3463/files/BLACK-FEATHERLIGHT-PIMA-TEE_768x_crop_center@2x.progressive.jpg?v=1705358729"
+              src="https://cdn.shopify.com/s/files/1/1368/3463/files/PLUM_Sweetheart-Tank-3_768x_crop_center@2x.progressive.jpg?v=1705503977"
               alt=""
               className="max-w-[270px] min-h-[370px]"
             />
@@ -61,7 +60,7 @@ const Tabview2 = () => {
         <div className="card-img">
           <Link to="">
             <img
-              src="https://cdn.shopify.com/s/files/1/1368/3463/files/BLACK-FEATHERLIGHT-PIMA-TEE_768x_crop_center@2x.progressive.jpg?v=1705358729"
+              src="https://cdn.shopify.com/s/files/1/1368/3463/files/PLUM_Sweetheart-Tank-3_768x_crop_center@2x.progressive.jpg?v=1705503977"
               alt=""
               className="max-w-[270px] min-h-[370px]"
             />
@@ -78,7 +77,7 @@ const Tabview2 = () => {
         <div className="card-img">
           <Link to="">
             <img
-              src="https://cdn.shopify.com/s/files/1/1368/3463/files/BLACK-FEATHERLIGHT-PIMA-TEE_768x_crop_center@2x.progressive.jpg?v=1705358729"
+              src="https://cdn.shopify.com/s/files/1/1368/3463/files/PLUM_Sweetheart-Tank-3_768x_crop_center@2x.progressive.jpg?v=1705503977"
               alt=""
               className="max-w-[270px] min-h-[370px]"
             />
@@ -91,9 +90,10 @@ const Tabview2 = () => {
           <p>$68</p>
         </div>
       </div>
+
 
     </div>
-  );
-};
+  )
+}
 
-export default Tabview2;
+export default Tabview2

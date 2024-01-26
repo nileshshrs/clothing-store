@@ -1,9 +1,9 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import "../../../global css/Tabview.scss";
+import React from 'react'
+import { Link } from 'react-router-dom'
+import "../../../../global css/Tabview.scss"
 
 
-const Tabview2 = () => {
+const Tabview1 = () => {
   return (
     <div className="card-container">
       <div className="clothes-card">
@@ -93,7 +93,7 @@ const Tabview2 = () => {
       </div>
 
     </div>
-  );
-};
+  )
+}
 
-export default Tabview2;
+export default Tabview1
