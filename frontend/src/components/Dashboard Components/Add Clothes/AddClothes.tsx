@@ -4,11 +4,20 @@ import { AiOutlineClose } from "react-icons/ai";
 import Select from "react-select";
 import { MdFileUpload } from "react-icons/md";
 import { useForm, Controller } from "react-hook-form";
-import axios from "axios";
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";
+import { app } from "../../../firebase/firebase.js"
 
 const AddClothes = ({ open, form }) => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [isImageSelected, setIsImageSelected] = useState(false);
+  const [image, setImage] = useState(null)
+  const [progress, setProgress] = useState(null)
+  const [url, setUrl] = useState("")
 
   const imageInputRef = useRef(null);
 
@@ -20,11 +29,55 @@ const AddClothes = ({ open, form }) => {
     const file = e.target.files[0];
     setSelectedImage(URL.createObjectURL(file));
     setIsImageSelected(true);
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onload = (event) => {
+        setSelectedImage(event.target.result);
+        setImage(file); // Set the 'image' state to the selected file
+      };
+
+      reader.readAsDataURL(file);
+    }
   };
 
-  const handleUploadClick = () => {
-    // Implement your upload logic here
-    console.log("Upload button clicked");
+  const handleUploadClick = async (e) => {
+    e.preventDefault();
+    const file = image;
+    console.log(file);
+
+    if (!file) {
+      handleSubmit(null);
+    } else {
+      const timestamp = new Date().toISOString().replace(/[-:.]/g, "");
+      const randomString = Math.random().toString(36).substring(2, 8);
+      const fileName = `${timestamp}_${randomString}_${file.name}`;
+
+      const storage = getStorage(app);
+      const REF = ref(storage, `upload/${fileName}`);
+      const uploadTask = uploadBytesResumable(REF, file);
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          setProgress(progress)
+        },
+        (err) => {
+          // console.log(err);
+        },
+        () =>
+          getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+            // Assuming you have a Submit function defined elsewhere
+            // Modify this part according to your logic
+            //calls the submit to database
+            setUrl(url)
+            setTimeout(() => {
+              setProgress(null)
+            }, 3000)
+          })
+      );
+    }
   };
   const categoryOptions = [
     { value: "Male", label: "Male" },
@@ -68,27 +121,27 @@ const AddClothes = ({ open, form }) => {
       type: data.type.value,
       size: data.size.map((item) => item.value),
       color: data.color.map((item) => item.value),
-      imagePath: null,
+      imagePath: url,
       description: data.description,
     };
     console.log(Data);
-    try {
-      const res = await axios.post(
-        "http://localhost:8080/api/v1/clothing/create",
-        Data
-      );
-      console.log(res.data);
+    // try {
+    //   const res = await axios.post(
+    //     "http://localhost:8080/api/v1/clothing/create",
+    //     Data
+    //   );
+    //   console.log(res.data);
 
-      setValue("clothesName", "");
-      setValue("price", "");
-      setValue("category", []);
-      setValue("type", []);
-      setValue("size", []);
-      setValue("color", []);
-      setValue("description", "");
-    } catch (errors) {
-      console.log(errors);
-    }
+    //   setValue("clothesName", "");
+    //   setValue("price", "");
+    //   setValue("category", []);
+    //   setValue("type", []);
+    //   setValue("size", []);
+    //   setValue("color", []);
+    //   setValue("description", "");
+    // } catch (errors) {
+    //   console.log(errors);
+    // }
   };
 
   const style1 = {
@@ -233,7 +286,7 @@ const AddClothes = ({ open, form }) => {
           </div>
 
           <div className="custom-input">
-            <label htmlFor="imgs">Images*</label>
+            <label htmlFor="imgs">Images* {progress ? <span className="text-red-600 font-normal text-[9px]">{progress !== 100 ? `uploading... ${progress.toFixed(2)}%` : "image uploaded"}</span> : null}</label>
             <div
               className="flex items-center justify-center border py-1 border-black rounded-[4px]"
               onClick={handleImageClick}

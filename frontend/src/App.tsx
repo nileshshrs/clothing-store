@@ -5,7 +5,6 @@ import Registration from "./pages/Registration"
 import Login from "./pages/Login"
 import Dashboard from "./pages/Dashboard"
 import DashboardContent from "./components/Dashboard Components/DashboardContent/DashboardContent"
-import verification from "./pages/verification"
 import Verify from "./pages/Verify"
 
 
