@@ -18,6 +18,7 @@ const AddClothes = ({ open, form }) => {
   const [image, setImage] = useState(null)
   const [progress, setProgress] = useState(null)
   const [url, setUrl] = useState("")
+  const [error, setError] = useState("")
 
   const imageInputRef = useRef(null);
 
@@ -44,41 +45,39 @@ const AddClothes = ({ open, form }) => {
   const handleUploadClick = async (e) => {
     e.preventDefault();
     const file = image;
-    console.log(file);
 
-    if (!file) {
-      handleSubmit(null);
-    } else {
-      const timestamp = new Date().toISOString().replace(/[-:.]/g, "");
-      const randomString = Math.random().toString(36).substring(2, 8);
-      const fileName = `${timestamp}_${randomString}_${file.name}`;
+    setError("")
 
-      const storage = getStorage(app);
-      const REF = ref(storage, `upload/${fileName}`);
-      const uploadTask = uploadBytesResumable(REF, file);
-      uploadTask.on(
-        "state_changed",
-        (snapshot) => {
-          const progress =
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          setProgress(progress)
-        },
-        (err) => {
-          // console.log(err);
-        },
-        () =>
-          getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-            // Assuming you have a Submit function defined elsewhere
-            // Modify this part according to your logic
-            //calls the submit to database
-            setUrl(url)
-            setTimeout(() => {
-              setProgress(null)
-            }, 3000)
-          })
-      );
-    }
-  };
+    const timestamp = new Date().toISOString().replace(/[-:.]/g, "");
+    const randomString = Math.random().toString(36).substring(2, 8);
+    const fileName = `${timestamp}_${randomString}_${file.name}`;
+
+    const storage = getStorage(app);
+    const REF = ref(storage, `upload/${fileName}`);
+    const uploadTask = uploadBytesResumable(REF, file);
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        setProgress(progress)
+      },
+      (err) => {
+        setError(err)
+      },
+      () =>
+        getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+          // Assuming you have a Submit function defined elsewhere
+          // Modify this part according to your logic
+          //calls the submit to database
+          setUrl(url)
+          setTimeout(() => {
+            setProgress(null)
+          }, 3000)
+        })
+    );
+  }
+
   const categoryOptions = [
     { value: "Male", label: "Male" },
     { value: "Female", label: "Female" },
@@ -114,17 +113,22 @@ const AddClothes = ({ open, form }) => {
     // Implement your submit logic here
     // console.log(data);
 
-    const Data = {
-      name: data.clothesName,
-      price: parseFloat(data.price), // Use parseFloat for the price
-      category: data.category.value,
-      type: data.type.value,
-      size: data.size.map((item) => item.value),
-      color: data.color.map((item) => item.value),
-      imagePath: url,
-      description: data.description,
-    };
-    console.log(Data);
+    if (url === "" || url === null) {
+
+      setError("Image is required")
+    } else {
+      const Data = {
+        name: data.clothesName,
+        price: parseFloat(data.price), // Use parseFloat for the price
+        category: data.category.value,
+        type: data.type.value,
+        size: data.size.map((item) => item.value),
+        color: data.color.map((item) => item.value),
+        imagePath: url,
+        description: data.description,
+      };
+      console.log(Data);
+    }
     // try {
     //   const res = await axios.post(
     //     "http://localhost:8080/api/v1/clothing/create",
@@ -187,7 +191,7 @@ const AddClothes = ({ open, form }) => {
             render={({ field }) => (
               <div className="custom-input">
                 <label htmlFor="clothes-name">Name*</label>
-                <input {...field} type="text" id="clothes-name" />
+                <input {...field} type="text" id="clothes-name" autoComplete="off" />
                 {errors.clothesName && <p>{errors.clothesName.message}</p>}
               </div>
             )}
@@ -286,7 +290,17 @@ const AddClothes = ({ open, form }) => {
           </div>
 
           <div className="custom-input">
-            <label htmlFor="imgs">Images* {progress ? <span className="text-red-600 font-normal text-[9px]">{progress !== 100 ? `uploading... ${progress.toFixed(2)}%` : "image uploaded"}</span> : null}</label>
+            <label htmlFor="imgs">Images*
+              {
+                progress ? <span className="text-red-600 font-normal text-[9px]">{progress !== 100 ? ` uploading... ${progress.toFixed(2)}%`
+                  :
+                  " image uploaded"}</span> : null
+              }
+              {
+                error && <span className="text-red-600 font-normal text-[10px]"> {error}</span>
+              }
+            </label>
+
             <div
               className="flex items-center justify-center border py-1 border-black rounded-[4px]"
               onClick={handleImageClick}
