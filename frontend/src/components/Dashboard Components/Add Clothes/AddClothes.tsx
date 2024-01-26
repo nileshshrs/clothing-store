@@ -11,6 +11,8 @@ import {
   getDownloadURL,
 } from "firebase/storage";
 import { app } from "../../../firebase/firebase.js"
+import axios from "axios";
+import img from "../../../assets/img-bg.png"
 
 const AddClothes = ({ open, form }) => {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -118,7 +120,7 @@ const AddClothes = ({ open, form }) => {
       setError("Image is required")
     } else {
       const Data = {
-        name: data.clothesName,
+        name: data.clothesName.toLowerCase(),
         price: parseFloat(data.price), // Use parseFloat for the price
         category: data.category.value,
         type: data.type.value,
@@ -127,25 +129,32 @@ const AddClothes = ({ open, form }) => {
         imagePath: url,
         description: data.description,
       };
-      console.log(Data);
-    }
-    // try {
-    //   const res = await axios.post(
-    //     "http://localhost:8080/api/v1/clothing/create",
-    //     Data
-    //   );
-    //   console.log(res.data);
 
-    //   setValue("clothesName", "");
-    //   setValue("price", "");
-    //   setValue("category", []);
-    //   setValue("type", []);
-    //   setValue("size", []);
-    //   setValue("color", []);
-    //   setValue("description", "");
-    // } catch (errors) {
-    //   console.log(errors);
-    // }
+      try {
+        const res = await axios.post(
+          "http://localhost:8080/api/v1/clothing/create",
+          Data
+        );
+        console.log(res.data);
+        setValue("clothesName", "");
+        setValue("price", "");
+        setValue("category", []);
+        setValue("type", []);
+        setValue("size", []);
+        setValue("color", []);
+        setValue("description", "");
+        setSelectedImage(null);
+        setIsImageSelected(false);
+        setUrl(""); // Reset the URL state
+        setProgress(null);
+
+      } catch (errors) {
+        console.log(errors);
+      }
+
+
+    }
+
   };
 
   const style1 = {
@@ -302,13 +311,13 @@ const AddClothes = ({ open, form }) => {
             </label>
 
             <div
-              className="flex items-center justify-center border py-1 border-black rounded-[4px]"
+              className="flex items-center justify-center border py-1 border-black rounded-[4px] h-[125px]"
               onClick={handleImageClick}
             >
               <img
-                src={selectedImage || "default_image_url"}
+                src={selectedImage || img}
                 alt="Preview"
-                className=""
+                className="max-h-[120px]"
                 width={"90px"}
                 height={"140px"}
               />
