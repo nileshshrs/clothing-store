@@ -16,7 +16,6 @@ const Navigation = () => {
     const { logout } = useLogout();
     const [nav, setNav] = useState(false);
 
-    console.log(user)
     const [isOpen, setIsOpen] = useState(false);
 
     const toggleDropdown = () => {
@@ -29,7 +28,6 @@ const Navigation = () => {
 
     const handleOptionClick = (value) => {
         // Handle the click event for each option
-        console.log(`Option clicked: ${value}`);
         setIsOpen(false);
     };
 

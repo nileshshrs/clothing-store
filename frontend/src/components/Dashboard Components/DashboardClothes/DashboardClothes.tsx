@@ -8,7 +8,7 @@ const DashboardClothes = () => {
 
     const { clothesQuery } = useClothesContext();
     const { data: clothesData, isLoading, isSuccess, isError } = clothesQuery
-    console.log(clothesData)
+   
 
     return (
         <div>
