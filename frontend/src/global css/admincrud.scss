@@ -71,11 +71,12 @@
           border-radius: 3.5px;
           background-color: var(--light-gray);
           color: var(--dark-black);
-          font-weight: 500;
+          font-weight: 400;
           font-family: var(--font-sans);
           padding: 0 0.75rem;
           width: 100%;
           outline: none;
+          font-size: var(--fz-sm);
           &:focus {
             outline: none;
           }
@@ -83,10 +84,11 @@
         textarea {
           border: 0.5px solid var(--dark-black);
           outline: none;
-          font-weight: 500;
+          font-weight: 400;
           font-family: var(--font-sans);
           background-color: var(--light-gray);
           padding: 5px;
+          font-size: var(--fz-sm);
         }
         button {
           background-color: var(--dark-black);

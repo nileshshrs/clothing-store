@@ -5,7 +5,7 @@ import "./dashboardcontent.scss"
 const DashboardContent = () => {
   return (
     <div className='main'>
-        <TodoList/>
+      <TodoList />
     </div>
   )
 }

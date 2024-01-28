@@ -38,12 +38,16 @@ public class Clothing {
 
     @Column(nullable = false)
     private Boolean inStock = true;
+    @Column(nullable = false)
+    private Boolean bestseller = false;
+    @Column(nullable = false)
+    private Boolean New = false;
 
-    @Column(nullable = true)
+    @Column(nullable = true, length = 2000)
     private String imagePath;
 
     // Constructors, getters, and setters
-    @Column(name = "description",columnDefinition = "TEXT", nullable = true)
+    @Column(name = "description",columnDefinition = "TEXT", length=10000)
     private String description;
     // Enum representing the category
 
@@ -114,6 +118,22 @@ public class Clothing {
 
     public void setInStock(Boolean inStock) {
         this.inStock = inStock;
+    }
+
+    public Boolean getBestseller() {
+        return bestseller;
+    }
+
+    public void setBestseller(Boolean bestseller) {
+        this.bestseller = bestseller;
+    }
+
+    public Boolean getNew() {
+        return New;
+    }
+
+    public void setNew(Boolean aNew) {
+        New = aNew;
     }
 
     public String getImagePath() {

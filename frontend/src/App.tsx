@@ -6,6 +6,8 @@ import Login from "./pages/Login"
 import Dashboard from "./pages/Dashboard"
 import DashboardContent from "./components/Dashboard Components/DashboardContent/DashboardContent"
 import Verify from "./pages/Verify"
+import DashboardClothes from "./components/Dashboard Components/DashboardClothes/DashboardClothes"
+import Clothes from "./pages/Clothes"
 
 
 
@@ -24,8 +26,10 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/sign-up" element={<Registration />} />
         <Route path="/sign-in" element={<Login />} />
+        <Route path="/clothes" element={<Clothes />} />
         <Route path="/dashboard/*" element={<Dashboard />} >
           <Route index element={<DashboardContent />} />
+          <Route path="clothes" element={<DashboardClothes />} />
         </Route>
         <Route path="/:verification" element={<Verify />} />
 

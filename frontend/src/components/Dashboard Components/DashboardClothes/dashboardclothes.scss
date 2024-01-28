@@ -1,0 +1,73 @@
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  place-content: center;
+  place-items: center;
+  gap: 1rem;
+  .clothes-card {
+    display: grid;
+    gap: 0.5rem;
+    place-content: center;
+    place-items: center;
+    .card-title {
+      display: grid;
+      gap: 0.5rem;
+      width: 100%;
+      span {
+        color: var(--dark-gray);
+        font-size: var(--fz-xs);
+        font-family: var(--font-mono);
+        width: 100%;
+      }
+      h3 {
+        color: var(--dark-black);
+        font-family: var(--font-sans);
+        font-size: var(--fz-md);
+        font-weight: bold !important;
+        width: 100%;
+      }
+      p {
+        color: var(--dark-black);
+        font-family: var(--font-sans);
+        font-size: var(--fz-sm);
+        font-weight: bold !important;
+        width: 100%;
+      }
+      .edit-btn {
+        font-family: var(--font-mono);
+        font-size: var(--fz-xs);
+        font-weight: bold;
+        background-color: var(--dark-black);
+        border: 0.5px solid var(--dark-black);
+        color: white;
+        width: 100%;
+        padding: 5px;
+        transition: var(
+          --transition
+        ); /* Add a smooth transition for transform and opacity */
+        &:hover {
+          background-color: white;
+          color: var(--dark-black);
+        }
+      }
+
+      .del-btn {
+        font-family: var(--font-mono);
+        font-size: var(--fz-xs);
+        font-weight: bold;
+        background-color: var(--dark-black);
+        border: 0.5px solid var(--dark-black);
+        color: white;
+        width: 100%;
+        padding: 5px;
+        transition: var(
+          --transition
+        ); /* Add a smooth transition for transform and opacity */
+        &:hover {
+          background-color: white;
+          color: var(--dark-black);
+        }
+      }
+    }
+  }
+}

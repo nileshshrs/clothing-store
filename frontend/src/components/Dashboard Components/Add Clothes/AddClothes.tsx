@@ -13,8 +13,14 @@ import {
 import { app } from "../../../firebase/firebase.js"
 import axios from "axios";
 import img from "../../../assets/img-bg.png"
+import { ToastContainer, toast } from "react-toastify";
+import { useClothesContext } from "../../../context/ClothesContext.js";
 
 const AddClothes = ({ open, form }) => {
+
+  const { create, clothesQuery } = useClothesContext()
+
+
   const [selectedImage, setSelectedImage] = useState(null);
   const [isImageSelected, setIsImageSelected] = useState(false);
   const [image, setImage] = useState(null)
@@ -90,6 +96,7 @@ const AddClothes = ({ open, form }) => {
   const typeOptions = [
     { value: "T-Shirt", label: "T-Shirt" },
     { value: "Jeans", label: "Jeans" },
+    { value: "Outer", label: "Outer" },
   ];
 
   const sizeOptions = [
@@ -101,6 +108,9 @@ const AddClothes = ({ open, form }) => {
   const colorOptions = [
     { value: "Red", label: "Red" },
     { value: "Blue", label: "Blue" },
+    { value: "Black", label: "Black" },
+    { value: "White", label: "White" },
+    { value: "Orchard Plaid", label: "Orchard Plaid" },
   ];
 
   const {
@@ -113,7 +123,6 @@ const AddClothes = ({ open, form }) => {
 
   const onSubmit = async (data) => {
     // Implement your submit logic here
-    // console.log(data);
 
     if (url === "" || url === null) {
 
@@ -127,35 +136,35 @@ const AddClothes = ({ open, form }) => {
         size: data.size.map((item) => item.value),
         color: data.color.map((item) => item.value),
         imagePath: url,
-        description: data.description,
+        description: data.description.trim(),
       };
+      await create.mutate(Data)
+      clothesQuery.refetch()
 
-      try {
-        const res = await axios.post(
-          "http://localhost:8080/api/v1/clothing/create",
-          Data
-        );
-        console.log(res.data);
-        setValue("clothesName", "");
-        setValue("price", "");
-        setValue("category", []);
-        setValue("type", []);
-        setValue("size", []);
-        setValue("color", []);
-        setValue("description", "");
-        setSelectedImage(null);
-        setIsImageSelected(false);
-        setUrl(""); // Reset the URL state
-        setProgress(null);
 
-      } catch (errors) {
-        console.log(errors);
-      }
-
+      toast.success("Clothing created successfully", {
+        position: "top-right",
+        style: {
+          height: '25px', // Adjust this value to your desired height
+          fontSize: "13px",
+          margin: 0
+        },
+      });
+      setValue("clothesName", "");
+      setValue("price", "");
+      setValue("category", []);
+      setValue("type", []);
+      setValue("size", []);
+      setValue("color", []);
+      setValue("description", "");
+      setSelectedImage(null);
+      setIsImageSelected(false);
+      setUrl(""); // Reset the URL state
+      setProgress(null);
 
     }
+  }
 
-  };
 
   const style1 = {
     control: (base, state) => ({
@@ -185,7 +194,7 @@ const AddClothes = ({ open, form }) => {
   };
 
   return (
-    <div className={form ? "clothes-form" : "clothes-form open-form"}>
+    <div className={form ? "clothes-form overflow-x-hidden" : "clothes-form open-form overflow-x-hidden"}>
       <button className="close-btns" onClick={open}>
         <AiOutlineClose className="text-lg text-black" />
       </button>
@@ -363,6 +372,7 @@ const AddClothes = ({ open, form }) => {
           </div>
         </div>
       </form>
+      <ToastContainer />
     </div>
   );
 };
