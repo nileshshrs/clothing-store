@@ -161,6 +161,7 @@ const AddClothes = ({ open, form }) => {
         color: data.color.map((item) => item.value),
         imagePath: url,
         description: data.description.trim(),
+        new: true
       };
       await create(Data)
 

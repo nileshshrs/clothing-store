@@ -9,7 +9,7 @@ export const ClothesProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
 
 
-    const [editSlide, setEditSlide] = useState(true);
+    const [editSlide, setEditSlide] = useState(false);
     const handleEditSlide = () => {
         setEditSlide(!editSlide);
     };
