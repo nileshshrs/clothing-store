@@ -18,7 +18,7 @@ import { useClothesContext } from "../../../context/ClothesContext.js";
 
 const AddClothes = ({ open, form }) => {
 
-  const { create, clothesQuery } = useClothesContext()
+  const { create, getClothes } = useClothesContext()
 
 
   const [selectedImage, setSelectedImage] = useState(null);
@@ -95,14 +95,20 @@ const AddClothes = ({ open, form }) => {
 
   const typeOptions = [
     { value: "T-Shirt", label: "T-Shirt" },
-    { value: "Jeans", label: "Jeans" },
+    { value: "Shorts", label: "Shorts" },
+    { value: "Pants & Joggers", label: "Pants & Joggers" },
+    { value: "Sweatpants", label: "Sweatpants" },
     { value: "Outer", label: "Outer" },
+    { value: "Polos", label: "Polos" },
+    { value: "Sweatshit & Layers", label: "Sweatshit & Layers" },
   ];
 
   const sizeOptions = [
     { value: "S", label: "S" },
     { value: "M", label: "M" },
     { value: "L", label: "L" },
+    { value: "XL", label: "XL" },
+    { value: "XXL", label: "XXL" },
   ];
 
   const colorOptions = [
@@ -111,6 +117,24 @@ const AddClothes = ({ open, form }) => {
     { value: "Black", label: "Black" },
     { value: "White", label: "White" },
     { value: "Orchard Plaid", label: "Orchard Plaid" },
+    { value: "Infinity Blue", label: "Infinity Blue" },
+    { value: "Pacific Blue", label: "Pacific Blue" },
+    { value: "Gray", label: "Gray" },
+    { value: "Slate", label: "Slate" },
+    { value: "Dove", label: "Dove" },
+    { value: "Dark Pine", label: "Dark Pine" },
+    { value: "Stone", label: "Stone" },
+    { value: "Green", label: "Green" },
+    { value: "Cabernet", label: "Cabernet" },
+    { value: "Polar", label: "Polar" },
+    { value: "Greystone", label: "Greystone" },
+    { value: "Umber", label: "Umber" },
+    { value: "Ivory", label: "Ivory" },
+    { value: "Heather Moss", label: "Heather Moss" },
+    { value: "Heather Gray", label: "Heather Gray" },
+    { value: "Graphite", label: "Graphite" },
+    { value: "Clay", label: "Clay" },
+    { value: "Sage", label: "Sage" },
   ];
 
   const {
@@ -138,8 +162,7 @@ const AddClothes = ({ open, form }) => {
         imagePath: url,
         description: data.description.trim(),
       };
-      await create.mutate(Data)
-      clothesQuery.refetch()
+      await create(Data)
 
 
       toast.success("Clothing created successfully", {

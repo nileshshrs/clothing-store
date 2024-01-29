@@ -43,7 +43,7 @@ public class Clothing {
     @Column(nullable = false)
     private Boolean New = false;
 
-    @Column(nullable = true, length = 2000)
+    @Column(nullable = true, length = 5000)
     private String imagePath;
 
     // Constructors, getters, and setters
