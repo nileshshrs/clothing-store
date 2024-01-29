@@ -4,6 +4,7 @@ import { useClothesContext } from '../context/ClothesContext';
 import Sidebar from '../components/Clothes/Sidebar';
 import { AiOutlineMenu } from 'react-icons/ai';
 import '../global css/clothes.scss';
+import "../components/Clothes/sidebar.scss"
 import axios from 'axios';
 
 const Clothes = () => {
@@ -89,7 +90,7 @@ const Clothes = () => {
                         filteredClothes.map(clothes => (
                             <div key={clothes.id} className='clothes-card'>
                                 <div className='card-img'>
-                                    <Link to=''>
+                                    <Link to={`/clothes/${clothes.id}`}>
                                         <img
                                             src={clothes.imagePath}
                                             alt=''

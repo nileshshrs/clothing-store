@@ -42,7 +42,7 @@ const DashboardClothes = () => {
                             <div key={clothes.id}>
                                 <div className="clothes-card" key={clothes.id}>
                                     <div className="card-img">
-                                        <Link to="">
+                                        <Link to={`/clothes/${clothes.id}`}>
                                             <img
                                                 src={clothes.imagePath}
                                                 alt=""

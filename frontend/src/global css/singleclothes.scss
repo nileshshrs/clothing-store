@@ -3,15 +3,16 @@
   gap: 1rem;
   justify-content: center;
   align-items: center;
+  width: 100%;
   .single-clothes-wrapper {
     flex-grow: 4;
     .single-clothes-container {
       display: flex;
       margin: 0 auto;
-      width: 80%;
-      align-items: center;
+      width: 90%;
+      align-items: start;
       justify-content: center;
-      gap: rem;
+      gap: 2rem;
       padding: 40px 20px;
       .image-wrapper {
         width: 100%;

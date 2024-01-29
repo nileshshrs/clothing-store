@@ -28,7 +28,7 @@ public class CartService {
         this.cartRepository = cartRepository;
     }
 
-    public synchronized Cart addToCart(Users user, Clothing clothing, int quantity, String size) {
+    public synchronized Cart addToCart(Users user, Clothing clothing, int quantity, String size, String color) {
         if (user == null || clothing == null || quantity <= 0) {
             throw new IllegalArgumentException("Invalid input parameters");
         }
@@ -48,6 +48,7 @@ public class CartService {
             newCart.setClothing(clothing);
             newCart.setQuantity(quantity);
             newCart.setSize(size);
+            newCart.setColors(color);
             newCart.setTotal(calculateTotal(clothing.getPrice(), quantity));
             return cartRepository.save(newCart);
         }
@@ -69,6 +70,7 @@ public class CartService {
             cartData.put("price", cart.getClothing().getPrice());
             cartData.put("imagePath", cart.getClothing().getImagePath());
             cartData.put("size", cart.getSize());
+            cartData.put("color", cart.getColors());
             cartData.put("quantity", cart.getQuantity());
             cartData.put("total", cart.getTotal());
 
@@ -94,6 +96,7 @@ public class CartService {
             cartData.put("price", cart.getClothing().getPrice());
             cartData.put("imagePath", cart.getClothing().getImagePath());
             cartData.put("size", cart.getSize());
+            cartData.put("color", cart.getColors());
             cartData.put("quantity", cart.getQuantity());
             cartData.put("total", cart.getTotal());
 
@@ -103,7 +106,7 @@ public class CartService {
         return cartsData;
     }
 
-    public synchronized Cart updateCart(Long cartId, Integer newQuantity, String newSize) {
+    public synchronized Cart updateCart(Long cartId, Integer newQuantity, String newSize, String newColor) {
         Optional<Cart> optionalCart = cartRepository.findById(cartId);
 
         if (optionalCart.isPresent()) {
@@ -118,6 +121,9 @@ public class CartService {
             if (newSize != null && !newSize.isEmpty()) {
                 // Update size
                 cart.setSize(newSize);
+            }
+            if (newColor != null && !newColor.isEmpty())  {
+                cart.setColors(newColor);
             }
 
             return cartRepository.save(cart);

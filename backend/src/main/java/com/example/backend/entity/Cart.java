@@ -31,6 +31,9 @@ public class Cart {
     @Column(name = "size")  // Added size field
     private String size;
 
+    @Column(name ="colors")
+    private String colors;
+
     // Getters and setters...
 
     public Long getCartId() {
@@ -79,5 +82,13 @@ public class Cart {
 
     public void setSize(String size) {
         this.size = size;
+    }
+
+    public String getColors() {
+        return colors;
+    }
+
+    public void setColors(String colors) {
+        this.colors = colors;
     }
 }

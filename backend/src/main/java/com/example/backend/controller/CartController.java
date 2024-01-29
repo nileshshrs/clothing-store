@@ -41,6 +41,7 @@ public class CartController {
             Long clothingId = ((Number) requestBody.get("clothingId")).longValue();
             int quantity = (int) requestBody.get("quantity");
             String size = (String) requestBody.get("size");
+            String color = (String) requestBody.get("color");
 
             Optional<Users> userOptional = userService.getUsersById(userId);
             Optional<Clothing> clothingOptional = clothingService.getClothingById(clothingId);
@@ -49,7 +50,7 @@ public class CartController {
                 Users user = userOptional.get();
                 Clothing clothing = clothingOptional.get();
 
-                Cart cartItem = cartService.addToCart(user, clothing, quantity, size);
+                Cart cartItem = cartService.addToCart(user, clothing, quantity, size, color);
 
                 Map<String, Object> responseData = new HashMap<>();
                 responseData.put("cartId", cartItem.getCartId());
@@ -58,6 +59,7 @@ public class CartController {
                 responseData.put("name", clothing.getName());
                 responseData.put("price", clothing.getPrice());
                 responseData.put("size", cartItem.getSize());
+                responseData.put("color", cartItem.getColors());
                 responseData.put("imagePath", clothing.getImagePath());
                 responseData.put("quantity", cartItem.getQuantity());
                 responseData.put("total", cartItem.getTotal());
@@ -103,8 +105,9 @@ public class CartController {
         try {
             Integer newQuantity = (Integer) requestBody.get("newQuantity");
             String newSize = (String) requestBody.get("newSize");
+            String newColor = (String) requestBody.get("newColor");
 
-            Cart updatedCart = cartService.updateCart(cartId, newQuantity, newSize);
+            Cart updatedCart = cartService.updateCart(cartId, newQuantity, newSize, newColor);
 
             Map<String, Object> response = new HashMap<>();
             response.put("message", "Cart updated successfully");
@@ -117,6 +120,7 @@ public class CartController {
             response.put("quantity", updatedCart.getQuantity());
             response.put("total", updatedCart.getTotal());
             response.put("size", updatedCart.getSize());
+            response.put("color", updatedCart.getColors());
 
             return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (IllegalArgumentException e) {

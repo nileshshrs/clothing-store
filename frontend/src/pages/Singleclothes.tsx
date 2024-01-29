@@ -4,9 +4,16 @@ import { useClothesContext } from '../context/ClothesContext';
 import Sidebar from '../components/Clothes/Sidebar';
 import { AiOutlineMenu } from 'react-icons/ai';
 import '../global css/singleclothes.scss';
+import { addToCart } from "../components/AddToCart";
+
+import { useAuthContext } from '../context/useAuthContext';
+import { ToastContainer } from 'react-toastify';
 
 const Singleclothes = () => {
+    const { user } = useAuthContext();
     const { getSingleClothes, singleClothes, loading } = useClothesContext();
+
+    const userId = user ? user.user?.id : null
 
     const [openSidebar, setOpenSidebar] = useState(false);
     const [selectedColor, setSelectedColor] = useState(null);
@@ -95,7 +102,7 @@ const Singleclothes = () => {
                                 </div>
                             </div>
                             <div className='flex w-full items-center justify-center btn-wrapper border-b py-2 px-3 border-b-slate-200'>
-                                <button className='bg-black w-full px-2 py-1 text-white'>
+                                <button className='bg-black w-full px-2 py-1 text-white' onClick={() => addToCart(id, userId, selectedColor, selectedSize)}>
                                     Add to Cart
                                 </button>
                             </div>
@@ -118,6 +125,7 @@ const Singleclothes = () => {
                     </div>
                 )}
             </div>
+            <ToastContainer/>
         </div>
     );
 };
