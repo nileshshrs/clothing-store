@@ -36,7 +36,7 @@ public class CartService {
         // Check if the same clothing is already in the cart for the user
         Cart existingCart = cartRepository.findByUserAndClothing(user, clothing);
 
-        if (existingCart != null) {
+        if (existingCart != null && size.equals(existingCart.getSize()) && color.equals(existingCart.getColors())) {
             // If the clothing is already in the cart, update the quantity and total
             existingCart.setQuantity(existingCart.getQuantity() + quantity);
             existingCart.setTotal(calculateTotal(clothing.getPrice(), existingCart.getQuantity()));

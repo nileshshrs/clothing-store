@@ -15,7 +15,7 @@ const Singleclothes = () => {
 
     const userId = user ? user.user?.id : null
 
-    const [openSidebar, setOpenSidebar] = useState(false);
+    const [openSidebar, setOpenSidebar] = useState(true);
     const [selectedColor, setSelectedColor] = useState(null);
     const [selectedSize, setSelectedSize] = useState(null);
 
@@ -56,17 +56,17 @@ const Singleclothes = () => {
                 ) : (
                     <div className='single-clothes-container'>
                         <div className='image-wrapper'>
-                            <img src={singleClothes.imagePath} alt='' />
+                            <img src={singleClothes?.imagePath} alt='' />
                         </div>
                         <div className='details'>
                             <div className='title-wrapper border-b py-2 px-3 border-b-slate-200'>
-                                <h3 className='capitalize'>{singleClothes.name}</h3>
-                                <div>${singleClothes.price}</div>
+                                <h3 className='capitalize'>{singleClothes?.name}</h3>
+                                <div>${singleClothes?.price}</div>
                             </div>
                             <div className='color-wrapper border-b py-2 px-3 border-b-slate-200'>
                                 <h5 className='flex justify-between items-center w-full'>Staple Colors: <span>{selectedColor}</span></h5>
                                 <div className='color'>
-                                    {singleClothes && singleClothes.color
+                                    {singleClothes && singleClothes?.color
                                         ? singleClothes.color.map((color, index) => (
                                             <button
                                                 key={index}
@@ -85,7 +85,7 @@ const Singleclothes = () => {
                             <div className='size-wrapper border-b py-2 px-3 border-b-slate-200'>
                                 <h5 className='flex justify-between items-center w-full'>AVAILABLE SIZES: <span>{selectedSize}</span></h5>
                                 <div className='size'>
-                                    {singleClothes && singleClothes.size
+                                    {singleClothes && singleClothes?.size
                                         ? singleClothes.size.map((size, index) => (
                                             <button
                                                 key={index}
@@ -109,7 +109,7 @@ const Singleclothes = () => {
                             <div className='w-full border-b py-2 px-3 border-b-slate-200 description-wrapper flex flex-col gap-3'>
                                 <h5>Description</h5>
                                 <div>
-                                    {singleClothes.description}
+                                    {singleClothes?.description}
                                 </div>
                             </div>
                             <div className='w-full border-b py-2 px-3 border-b-slate-200 description-wrapper flex flex-col gap-3'>

@@ -6,10 +6,17 @@ import { AiOutlineMenu } from 'react-icons/ai';
 import '../global css/clothes.scss';
 import "../components/Clothes/sidebar.scss"
 import axios from 'axios';
+import { useAuthContext } from '../context/useAuthContext';
+import { addToCart } from "../components/AddToCart";
+import { useCartContext } from '../context/CartContext';
 
 const Clothes = () => {
     const [openSidebar, setOpenSidebar] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState('All');
+    const { user } = useAuthContext()
+    const {fetchCartData}   = useCartContext()
+    const userId = user ? user.user.id : null
+
 
 
     const onClickSidebarBtn = () => {
@@ -27,6 +34,20 @@ const Clothes = () => {
         }
     });
 
+    const handleQuickAdd = (clothes) => {
+        if (clothes.size.length === 1) {
+
+            // Add the logic to handle the case when there's only one size
+            addToCart(clothes.id, userId, clothes.color[0], clothes.size[0])
+        } else {
+            console.log(`Adding size: ${clothes.size[1]}`);
+            addToCart(clothes.id, userId, clothes.color[0], clothes.size[1])
+            // Add the logic to handle the case when there are multiple sizes
+        }
+
+        // Add the rest of your logic for handling the quick add
+        // ...
+    };
 
 
     return (
@@ -97,11 +118,11 @@ const Clothes = () => {
                                             className='max-w-[270px] min-h-[370px]'
                                         />
                                     </Link>
-                                    <button className='add-cart'>+ Quick Add</button>
+                                    <button className='add-cart' onClick={() => { handleQuickAdd(clothes) }}>+ Quick Add</button>
                                 </div>
                                 <div className='card-title'>
                                     <span>Color: {clothes.color[0]}{clothes.color.length <= 1 ? null : `,${clothes.color.length - 1} more colors available`}</span>
-                                    <span>Size: {clothes.size.length === 1 ? "S" : clothes.size[1]}{clothes.size.length <= 1 ? null : `, +${clothes.size.length - 1} more sizes available`}</span>
+                                    <span>Size: {clothes.size.length === 1 ? clothes.size[0] : clothes.size[1]}{clothes.size.length <= 1 ? null : `, +${clothes.size.length - 1} more sizes available`}</span>
                                     <h3 className='capitalize'>{clothes.name}</h3>
                                     <p>Price: ${clothes.price}</p>
                                 </div>

@@ -2,6 +2,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+
 export const addToCart = async (clothingId, userID, color, size) => {
 
   const cartData = {
@@ -11,7 +12,7 @@ export const addToCart = async (clothingId, userID, color, size) => {
     color: color,
     size: size,
   };
-  console.log(cartData);
+
   try {
     const response = await axios.post(
       "http://localhost:8080/api/v1/carts/add-to-cart",
@@ -19,7 +20,6 @@ export const addToCart = async (clothingId, userID, color, size) => {
     );
     console.log("Cart data added:", cartData);
     // Handle successful response as needed
-    console.log(response.data);
 
     toast.success("clothing has been added to the Cart", {
       position: "top-right",
@@ -41,4 +41,6 @@ export const addToCart = async (clothingId, userID, color, size) => {
     });
     // Handle errors
   }
+
 };
+

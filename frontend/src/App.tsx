@@ -9,6 +9,7 @@ import Verify from "./pages/Verify"
 import DashboardClothes from "./components/Dashboard Components/DashboardClothes/DashboardClothes"
 import Clothes from "./pages/Clothes"
 import Singleclothes from "./pages/Singleclothes"
+import Cart from "./pages/Cart"
 
 
 
@@ -26,6 +27,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/sign-up" element={<Registration />} />
+        <Route path="/cart" element={<Cart />} />
         <Route path="/sign-in" element={<Login />} />
         <Route path="/clothes" element={<Clothes />} />
         <Route path="/clothes/:id" element={<Singleclothes />} />
