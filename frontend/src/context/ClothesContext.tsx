@@ -58,10 +58,18 @@ export const ClothesProvider = ({ children }) => {
             getClothes()
 
         } catch (error) {
-            console.error("Error updating book:", error);
+            console.error("Error updating clothes:", error);
 
         }
     };
+
+    const deleteClothes = async (clothesId) => {
+        try {
+          await axios.delete(`http://localhost:8080/api/v1/clothing/${clothesId}`);
+        } catch (error) {
+          console.error("Error deleting clothes:", error);
+        }
+      };
 
 
     useEffect(() => {
@@ -78,7 +86,8 @@ export const ClothesProvider = ({ children }) => {
             getClothes,
             singleClothes,
             getSingleClothes,
-            updateClothes
+            updateClothes,
+            deleteClothes
         }}>
             {children}
         </ClothesContext.Provider>

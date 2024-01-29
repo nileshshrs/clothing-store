@@ -9,7 +9,7 @@ import axios from 'axios';
 const DashboardClothes = () => {
 
 
-    const { clothesData, handleEditSlide, loading, getSingleClothes, getClothes } = useClothesContext();
+    const { clothesData, handleEditSlide, loading, getSingleClothes, getClothes, deleteClothes } = useClothesContext();
 
     const update = (id) => {
         handleEditSlide()
@@ -58,7 +58,7 @@ const DashboardClothes = () => {
                                         <p className='capitalize'>$ {clothes.price}</p>
                                         <div className='flex gap-1'>
                                             <button className="edit-btn" onClick={() => { update(clothes.id) }}>Edit</button>
-                                            <button className="del-btn">Delete</button>
+                                            <button className="del-btn" onClick={() => { deleteClothes(clothes.id) }}>Delete</button>
                                         </div>
                                         <div className='w-full flex flex-col gap-2'>
                                             <div className='flex gap-1'>
