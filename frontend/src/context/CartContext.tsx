@@ -7,8 +7,6 @@ import { useLogout } from "./useLogout";
 const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
-    const location = useLocation();
-    const isCartPage = location.pathname === '/checkout';
 
     const [cartItems, setCartItems] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -38,7 +36,7 @@ export const CartProvider = ({ children }) => {
     useEffect(() => {
         // Fetch cart data from the server
         fetchCartData();
-    }, [isCartPage]);
+    }, []);
 
     return (
         (!loading && <CartContext.Provider value={{ cartItems, fetchCartData }}>
