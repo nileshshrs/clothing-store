@@ -1,12 +1,14 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import axios from "axios";
 import { useAuthContext } from "./useAuthContext";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useLogout } from "./useLogout";
 
 const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
+    const location = useLocation();
+    const isCartPage = location.pathname === '/checkout';
 
     const [cartItems, setCartItems] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -36,7 +38,7 @@ export const CartProvider = ({ children }) => {
     useEffect(() => {
         // Fetch cart data from the server
         fetchCartData();
-    }, []);
+    }, [isCartPage]);
 
     return (
         (!loading && <CartContext.Provider value={{ cartItems, fetchCartData }}>
