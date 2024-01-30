@@ -1,5 +1,7 @@
 import axios from "axios";
 import { createContext, useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useLogout } from "./useLogout";
 
 const ClothesContext = createContext();
 
@@ -8,6 +10,8 @@ export const ClothesProvider = ({ children }) => {
     const [clothesData, setClothesData] = useState([]);
     const [loading, setLoading] = useState(true);
 
+    const navigate = useNavigate()
+    const { logout } = useLogout()
 
     const [editSlide, setEditSlide] = useState(false);
     const handleEditSlide = () => {
@@ -25,7 +29,7 @@ export const ClothesProvider = ({ children }) => {
 
     const getClothes = async () => {
         try {
-            const res = await axios.get("http://localhost:8080/api/v1/clothing");
+            const res = await axios.get("http://localhost:8080/api/v1/clothing/get-all");
             const newClothes = res.data.clothing;
             setClothesData(newClothes);
             setLoading(false); // Set loading to false when data is fetched
@@ -54,7 +58,7 @@ export const ClothesProvider = ({ children }) => {
             );
             const updatedClothes = response.data;
             console.log(updatedClothes)
-        
+
             getClothes()
 
         } catch (error) {
@@ -65,11 +69,11 @@ export const ClothesProvider = ({ children }) => {
 
     const deleteClothes = async (clothesId) => {
         try {
-          await axios.delete(`http://localhost:8080/api/v1/clothing/${clothesId}`);
+            await axios.delete(`http://localhost:8080/api/v1/clothing/${clothesId}`);
         } catch (error) {
-          console.error("Error deleting clothes:", error);
+            console.error("Error deleting clothes:", error);
         }
-      };
+    };
 
 
     useEffect(() => {

@@ -1,19 +1,27 @@
 import React, { useEffect, useState } from 'react'
 import { useCartContext } from '../context/CartContext'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import "../global css/checkout.scss"
 import { FaLocationDot } from "react-icons/fa6";
 import { IoBagOutline } from "react-icons/io5";
 import Khalti from "../assets/khalti.png"
 import Payment from "../components/Payment"
+import { LuCreditCard } from "react-icons/lu";
+import { useAuthContext } from '../context/useAuthContext'
+import { useLogout } from '../context/useLogout'
+
 
 const Cart = () => {
+    const { user } = useAuthContext()
     const { cartItems, fetchCartData } = useCartContext()
     const [paymentMethod, setPaymentMethod] = useState("cash on delivery");
     const [address, setAddress] = useState("");
     const [contact, setContact] = useState("");
     const [error, setError] = useState("");
+    const accesstoken = user ? user.token : null
+
+    const { logout } = useLogout()
 
     useEffect(() => {
         fetchCartData()
@@ -42,22 +50,92 @@ const Cart = () => {
         }
     }
 
+    const handleIncreaseQuantity = async (cartId, quantity) => {
+        try {
+            await axios.patch(
+                `http://localhost:8080/api/v1/carts/update/${cartId}`,
+                { newQuantity: quantity + 1 },
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${accesstoken}`
+                    }
+                }
+            );
+
+            fetchCartData();
+
+        } catch (error) {
+            console.error("Error updating cart:", error);
+            logout()
+        }
+    };
+
+
+    const handleDecreaseQuantity = async (cartId, quantity) => {
+        if (quantity > 1) {
+            try {
+                await axios.patch(
+                    `http://localhost:8080/api/v1/carts/update/${cartId}`,
+                    { newQuantity: quantity - 1 }, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${accesstoken}`
+                    }
+                }
+                );
+                fetchCartData();
+
+            } catch (error) {
+                console.error("Error updating cart:", error);
+                logout()
+            }
+        }
+        if (quantity <= 1) {
+            handleRemoveCartItem(cartId)
+        }
+
+    };
+
+    const handleRemoveCartItem = async (cartId) => {
+        try {
+            await axios.delete(
+                `http://localhost:8080/api/v1/carts/delete/${cartId}`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${accesstoken}`
+                }
+            }
+            );
+
+            fetchCartData();
+
+        } catch (error) {
+            console.error("Error deleting cart:", error);
+            logout()
+        }
+    };
 
     //NOTE: remove the max width 900 and min height 500px
     return (
-        <section className='my-5 py-5 checkout-section px-4'>
-            <div className='max-w-[900px] mx-auto flex gap-1 shadow-slate-400 shadow checkout-wrapper items-center justify-center'>
-                <div className='w-full pb-12 pt-3'>
+        <section className='py-5 checkout-section px-4'>
+            <div className='mx-auto w-[60%]'>
+                <h2 className='w-full py-5 px-2 font-bold text-lg text-center'>
+                    Checkout
+                </h2>
+            </div>
+            <div className='max-w-[900px] mx-auto flex gap-1 shadow-slate-400 shadow checkout-wrapper items-start justify-center'>
+                <div className='w-full pb-12 pt-3 px-1'>
                     <div className='w-full'>
                         <h2 className='w-full px-2 font-bold text-lg flex justify-between items-center py-3'>
                             <span>Shopping Bag</span>
                             <span>[{cartItems.length}]</span></h2>
                     </div>
                     <div className='max-h-[450px]  w-full py-3 overflow-y-auto cart-wrapper'>
-                        {cartItems ?
+                        {cartItems.length != 0 ?
                             cartItems.map(items => {
                                 return (
-                                    <div className='cart'>
+                                    <div className='cart' key={items.cartId}>
                                         <div className='wrapper flex flex-row font-bold gap-3 py-1 px-2 border-b border-slate-200'>
                                             <div className='py-2 cart-img'>
                                                 <img src={items.imagePath} alt="" className='max-h-[130px]' />
@@ -79,12 +157,12 @@ const Cart = () => {
                                                 </div>
                                                 <div className='flex justify-between w-full items-center'>
                                                     <div className='flex items-center justify-center gap-3'>
-                                                        <button>&#8722;</button>
+                                                        <button onClick={() => handleDecreaseQuantity(items.cartId, items.quantity)}>&#8722;</button>
                                                         <p>{items.quantity}</p>
-                                                        <button>&#43;</button>
+                                                        <button onClick={() => handleIncreaseQuantity(items.cartId, items.quantity)}>&#43;</button>
                                                     </div>
                                                     <div>
-                                                        <button className='text-md hover:text-gray-600 transition ease-linear'>remove</button>
+                                                        <button onClick={() => handleRemoveCartItem(items.cartId)} className='text-md hover:text-gray-600 transition ease-linear'>remove</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -94,21 +172,17 @@ const Cart = () => {
                                 )
                             }) : (
                                 <div className='max-h-[450px] h[-450px] w-full py-3 overflow-y-auto cart-wrapper flex justify-center items-center'>
-                                    <p>
+                                    <p className='font-sans font-bold text-xl'>
                                         No items in your shopping bag
                                     </p>
                                 </div>
                             )
+
                         }
                     </div>
-
                 </div>
                 <div className='w-full pt-3 pb-12 px-4checkout-wrapper'>
-                    <div className='w-full'>
-                        <h2 className='w-full py-3 px-2 font-bold text-lg'>
-                            Checkout
-                        </h2>
-                    </div>
+
 
                     <div className='h-full  order-details flex flex-col gap-3'>
                         <div className="text-[firebrick] bg-[pink] text-center font-semibold mb-2 w-[90%] mx-auto">
@@ -160,45 +234,47 @@ const Cart = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="payment-method flex flex-col gap-2 w-[80%] mx-auto">
-                            <h3 className="font-bold text-md">Payment Method</h3>
-                            <div className="flex py-2 justify-between items-center">
-                                <div className="flex items-center justify-center">
-                                    <input
-                                        type="radio"
-                                        className="form-radio h-3 mr-2"
-                                        name="paymentMethod"
-                                        value="cashOnDelivery"  // Corrected value
-                                        checked={paymentMethod === "cash on delivery"}
-                                        onChange={handleInputChange}
-                                    />
-                                    <label
-                                        htmlFor="cashOnDelivery"
-                                        className="flex items-center cursor-pointer text-sm font-bold"
-                                    >
-                                        Cash on Delivery
-                                    </label>
+                        <div className='flex flex-col gap-1 '>
+                            <h3 className="w-full flex items-center gap-2 justify-start text-md px-3 py-1 font-bold"><LuCreditCard />Payment Method</h3>
+                            <div className="payment-method flex flex-col gap-2 w-[80%] mx-auto">
+                                <div className="flex py-2 justify-between items-center">
+                                    <div className="flex items-center justify-center">
+                                        <input
+                                            type="radio"
+                                            className="form-radio h-3 mr-2"
+                                            name="paymentMethod"
+                                            value="cashOnDelivery"  // Corrected value
+                                            checked={paymentMethod === "cash on delivery"}
+                                            onChange={handleInputChange}
+                                        />
+                                        <label
+                                            htmlFor="cashOnDelivery"
+                                            className="flex items-center cursor-pointer text-sm font-bold"
+                                        >
+                                            Cash on Delivery
+                                        </label>
+                                    </div>
+                                    <div className="px-2 flex items-center justify-center">
+                                        <input
+                                            type="radio"
+                                            className="form-radio h-3"
+                                            name="paymentMethod"
+                                            value="khalti"
+                                            checked={paymentMethod === "khalti"}
+                                            onChange={handleInputChange}
+                                        />
+                                        <label
+                                            htmlFor="khalti"
+                                            className="flex items-center cursor-pointer"
+                                        >
+                                            <img src={Khalti} className="h-8 ml-3" alt="Khalti" />
+                                        </label>
+                                    </div>
                                 </div>
-                                <div className="px-2 flex items-center justify-center">
-                                    <input
-                                        type="radio"
-                                        className="form-radio h-3"
-                                        name="paymentMethod"
-                                        value="khalti"
-                                        checked={paymentMethod === "khalti"}
-                                        onChange={handleInputChange}
-                                    />
-                                    <label
-                                        htmlFor="khalti"
-                                        className="flex items-center cursor-pointer"
-                                    >
-                                        <img src={Khalti} className="h-8 ml-3" alt="Khalti" />
-                                    </label>
-                                </div>
+                                <p className='text-xs text-gray-400 font-medium'>
+                                    Thank you for shopping with us..!
+                                </p>
                             </div>
-                            <p className='text-xs text-gray-400 font-medium'>
-                                Thank you for shopping with us..!
-                            </p>
                         </div>
                         <div className="flex flex-col gap-2 w-[80%] mx-auto items-center justify-center py-3">
                             {paymentMethod === "khalti" ? (
@@ -228,7 +304,8 @@ const Cart = () => {
                 </div>
 
             </div>
-        </section>
+
+        </section >
     )
 }
 

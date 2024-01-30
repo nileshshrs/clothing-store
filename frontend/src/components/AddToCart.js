@@ -2,9 +2,13 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-
-export const addToCart = async (clothingId, userID, color, size) => {
-
+export const addToCart = async (
+  clothingId,
+  userID,
+  color,
+  size,
+  accesstoken
+) => {
   const cartData = {
     userId: parseInt(userID),
     clothingId: parseInt(clothingId),
@@ -14,9 +18,15 @@ export const addToCart = async (clothingId, userID, color, size) => {
   };
 
   try {
-    const response = await axios.post(
+    await axios.post(
       "http://localhost:8080/api/v1/carts/add-to-cart",
-      cartData
+      cartData,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accesstoken}`,
+        },
+      }
     );
     console.log("Cart data added:", cartData);
     // Handle successful response as needed
@@ -31,16 +41,8 @@ export const addToCart = async (clothingId, userID, color, size) => {
     });
   } catch (error) {
     console.error("Error adding to cart:", error);
-    toast.warning("You must login to add clothes to cart.", {
-      position: "top-right",
-      style: {
-        height: "25px", // Adjust this value to your desired height
-        fontSize: "13px",
-        margin: 0,
-      },
-    });
+    localStorage.removeItem("user");
+    window.location = "/sign-in";
     // Handle errors
   }
-
 };
-

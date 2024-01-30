@@ -43,7 +43,7 @@ public class ClothingController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }
     }
-    @GetMapping
+    @GetMapping("/get-all")
     public ResponseEntity<Map<String, Object>> getAllClothing() {
         Map<String, Object> response = new HashMap<>();
 

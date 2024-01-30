@@ -16,7 +16,7 @@ const Clothes = () => {
     const { user } = useAuthContext()
     const {fetchCartData}   = useCartContext()
     const userId = user ? user.user.id : null
-
+    const accesstoken =user ?user.token: null
 
 
     const onClickSidebarBtn = () => {
@@ -38,10 +38,10 @@ const Clothes = () => {
         if (clothes.size.length === 1) {
 
             // Add the logic to handle the case when there's only one size
-            addToCart(clothes.id, userId, clothes.color[0], clothes.size[0])
+            addToCart(clothes.id, userId, clothes.color[0], clothes.size[0], accesstoken)
         } else {
             console.log(`Adding size: ${clothes.size[1]}`);
-            addToCart(clothes.id, userId, clothes.color[0], clothes.size[1])
+            addToCart(clothes.id, userId, clothes.color[0], clothes.size[1], accesstoken)
             // Add the logic to handle the case when there are multiple sizes
         }
 
