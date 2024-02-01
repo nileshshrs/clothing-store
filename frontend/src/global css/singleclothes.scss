@@ -6,6 +6,9 @@
   width: 100%;
   .single-clothes-wrapper {
     flex-grow: 4;
+    .sidebar-btn {
+      display: none;
+    }
     .single-clothes-container {
       display: flex;
       margin: 0 auto;
@@ -133,11 +136,17 @@
 @media (min-width: 768px) and (max-width: 991px) {
   .single-clothes-container {
     flex-direction: column;
+    .sidebar-btn {
+      display: block;
+    }
   }
 }
 @media (min-width: 512px) and (max-width: 768px) {
   .single-clothes-container {
     flex-direction: column;
+    .sidebar-btn {
+      display: block;
+    }
   }
 }
 @media (max-width: 512px) {
@@ -145,8 +154,11 @@
     flex-direction: column;
     width: 100% !important;
     padding: 20px !important;
-    .details{
-        padding: 0 !important;
+    .sidebar-btn {
+      display: block;
+    }
+    .details {
+      padding: 0 !important;
     }
   }
 }
