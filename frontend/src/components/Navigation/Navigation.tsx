@@ -101,7 +101,7 @@ const Navigation = () => {
                                                 <Link to="/account"> <button className='cart-btn flex items-center justify-center w-full p-1 gap-1'>Account<FaUser /></button> </Link>
                                             </div>
                                             <div className="dropdown-option" onClick={() => handleOptionClick('Option 1')}>
-                                                <Link to="/cart"> <button className='cart-btn flex items-center justify-center w-full p-1 gap-1'>Cart<IoBagHandleSharp /></button> </Link>
+                                                <Link to="/checkout"> <button className='cart-btn flex items-center justify-center w-full p-1 gap-1'>Cart<IoBagHandleSharp /></button> </Link>
                                             </div>
                                             <div className="dropdown-option" onClick={() => handleOptionClick('Option 1')}>
                                                 <button onClick={handleLogout} className='cart-btn flex items-center justify-center w-full p-1 gap-1'>Logout <MdLogout /></button>
@@ -152,7 +152,7 @@ const Navigation = () => {
                             </li>
                             <li>
                                 {
-                                    user ? <Link to="/cart">Cart</Link> : null
+                                    user ? <Link to="/checkout">Cart</Link> : null
                                 }
                             </li>
                         </ul>
