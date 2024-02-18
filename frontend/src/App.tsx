@@ -23,6 +23,7 @@ import Orders from "./pages/Orders";
 import Men from "./pages/Men";
 import Women from "./pages/Women";
 import Success from "./pages/Success";
+import Search from "./pages/Search";
 
 const App = () => {
   const { user } = useAuthContext();
@@ -64,6 +65,7 @@ const App = () => {
         ) : <Route path="/" element={<Home />} />
         <Route path="/:verification" element={<Verify />} />
         <Route path="/success" element={<Success/>}/>
+        <Route path="/search/:searchKey" element={<Search />} />
       </Routes>
     </>
   );

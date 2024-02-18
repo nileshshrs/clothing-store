@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { FaSearch, FaShoppingBag, FaUser } from "react-icons/fa";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { MdLogout } from "react-icons/md";
@@ -16,7 +16,9 @@ const Navigation = () => {
     const { user } = useAuthContext();
     const { logout } = useLogout();
     const [nav, setNav] = useState(false);
-    const {cartItems} = useCartContext()
+    const { cartItems } = useCartContext()
+    const navigate = useNavigate()
+    const [searchKey, setSearchKey] = useState("");
 
     const [isOpen, setIsOpen] = useState(false);
 
@@ -54,6 +56,12 @@ const Navigation = () => {
             window.removeEventListener("scroll", handleScroll);
         };
     }, []);
+
+    const searchProduct = (e) => {
+        e.preventDefault();
+        console.log(searchKey)
+        navigate(`/search/${searchKey}`)
+    };
     return (
         <header className={`${isHeaderFixed ? "fixed-header" : ""}`}>
             <div className='navbar-container'>
@@ -79,9 +87,9 @@ const Navigation = () => {
                             <Link to="/clothes/women">Women's</Link>
                         </li>
                         <li className="">
-                            <form className="">
-                                <input type="text" placeholder="search..." />
-                                <button>
+                            <form className="" onSubmit={searchProduct}>
+                                <input type="text" placeholder="search..." onChange={(e) => setSearchKey(e.target.value)} />
+                                <button type="submit">
                                     <FaSearch />
                                 </button>
                             </form>

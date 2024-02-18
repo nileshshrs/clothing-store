@@ -47,7 +47,7 @@ const Clothes = () => {
             fetchCartData()
             // Add the logic to handle the case when there are multiple sizes
         }
-
+        fetchCartData()
         // Add the rest of your logic for handling the quick add
         // ...
     };
