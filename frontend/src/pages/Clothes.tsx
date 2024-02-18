@@ -39,9 +39,11 @@ const Clothes = () => {
 
             // Add the logic to handle the case when there's only one size
             addToCart(clothes.id, userId, clothes.color[0], clothes.size[0], accesstoken)
+            fetchCartData()
         } else {
             console.log(`Adding size: ${clothes.size[1]}`);
             addToCart(clothes.id, userId, clothes.color[0], clothes.size[1], accesstoken)
+            fetchCartData()
             // Add the logic to handle the case when there are multiple sizes
         }
 

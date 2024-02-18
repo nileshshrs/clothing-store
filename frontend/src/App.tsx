@@ -20,6 +20,7 @@ import { useAuthContext } from "./context/useAuthContext";
 import Users from "./components/Dashboard Components/User/Users";
 import UserOrders from "./components/Dashboard Components/Orders/UserOrders";
 import Orders from "./pages/Orders";
+import Success from "./pages/Success";
 
 const App = () => {
   const { user } = useAuthContext();
@@ -58,6 +59,7 @@ const App = () => {
         </Route>
         ) : <Route path="/" element={<Home />} />
         <Route path="/:verification" element={<Verify />} />
+        <Route path="/success" element={<Success/>}/>
       </Routes>
     </>
   );

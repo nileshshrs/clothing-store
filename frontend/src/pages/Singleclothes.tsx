@@ -8,12 +8,15 @@ import { addToCart } from "../components/AddToCart";
 
 import { useAuthContext } from '../context/useAuthContext';
 import { ToastContainer } from 'react-toastify';
+import { useCartContext } from '../context/CartContext';
 
 const Singleclothes = () => {
     const { user } = useAuthContext();
     const { getSingleClothes, singleClothes, loading } = useClothesContext();
+    const { fetchCartData } = useCartContext()
 
     const userId = user ? user.user?.id : null
+    const accesstoken =user ?user.token: null
 
     const [openSidebar, setOpenSidebar] = useState(true);
     const [selectedColor, setSelectedColor] = useState(null);
@@ -43,6 +46,11 @@ const Singleclothes = () => {
     const handleSizeClick = (size) => {
         setSelectedSize(size);
     };
+
+    const AddtoCart=(id) => {
+        addToCart(id, userId, selectedColor, selectedSize, accesstoken)
+        fetchCartData();
+    }
 
     return (
         <div className='single-clothes'>
@@ -102,7 +110,7 @@ const Singleclothes = () => {
                                 </div>
                             </div>
                             <div className='flex w-full items-center justify-center btn-wrapper border-b py-2 px-3 border-b-slate-200'>
-                                <button className='bg-black w-full px-2 py-1 text-white' onClick={() => addToCart(id, userId, selectedColor, selectedSize)}>
+                                <button className='bg-black w-full px-2 py-1 text-white' onClick={() => AddtoCart(id)}>
                                     Add to Cart
                                 </button>
                             </div>
@@ -125,7 +133,7 @@ const Singleclothes = () => {
                     </div>
                 )}
             </div>
-            <ToastContainer/>
+            <ToastContainer />
         </div>
     );
 };

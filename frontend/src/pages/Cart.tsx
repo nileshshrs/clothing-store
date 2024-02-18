@@ -19,7 +19,11 @@ const Cart = () => {
     const [address, setAddress] = useState("");
     const [contact, setContact] = useState("");
     const [error, setError] = useState("");
+    const [paymentSuccess, setPaymentSuccess] = useState(false);
     const accesstoken = user ? user.token : null
+    const userId = user ? user?.user?.id : null
+    const navigate = useNavigate()
+
 
     const { logout } = useLogout()
 
@@ -47,6 +51,49 @@ const Cart = () => {
     const saveShippingInfo = async () => {
         if (contact === "" || address == "") {
             setError("shipping info cannot be empty");
+        } else {
+            const data = {
+                cartItems: cartItems,
+                orderDate: Date.now(),
+                shippingAddress: address,
+                contact: contact,
+                paymentMethod: paymentMethod,
+            };
+
+            try {
+                const response = await axios.post(
+                    `http://localhost:8080/api/v1/orders/create`,
+                    data, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${accesstoken}`
+                    }
+                }
+                );
+
+                if (response.status >= 200 && response.status < 300) {
+                    console.log("Shipping info saved successfully!");
+                    try {
+                        const url = `http://localhost:8080/api/v1/carts/deleteByUserId/${userId}`;
+                        const res = await axios.delete(url, {
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${accesstoken}`
+                            }
+                        });
+                        console.log(res.data);
+                        fetchCartData();
+                        setPaymentSuccess(true); // Set payment success state to true
+                        navigate("/success")
+                    } catch (error) {
+                        console.log(error);
+                    }
+                } else {
+                    console.error("Unexpected status code:", response.status);
+                }
+            } catch (error) {
+                console.error("Error saving shipping info:", error.message);
+            }
         }
     }
 
