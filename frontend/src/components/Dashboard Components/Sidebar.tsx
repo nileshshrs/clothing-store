@@ -25,7 +25,7 @@ const Sidebar = ({ slide }) => {
                 </Link>
             </header>
             <div className='account-container'>
-                <Link to={"/profile"}>
+                <Link to={"/#"}>
                     <span className='img-container'>
                         <img src="" alt="N" width={"30px"}
                             height={"30px"} />

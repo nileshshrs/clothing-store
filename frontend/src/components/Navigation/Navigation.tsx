@@ -8,6 +8,7 @@ import { IoMdArrowDropdown } from "react-icons/io";
 import "./Navigation.scss"
 import { useAuthContext } from '../../context/useAuthContext';
 import { useLogout } from '../../context/useLogout';
+import { useCartContext } from '../../context/CartContext';
 
 
 
@@ -15,6 +16,7 @@ const Navigation = () => {
     const { user } = useAuthContext();
     const { logout } = useLogout();
     const [nav, setNav] = useState(false);
+    const {cartItems} = useCartContext()
 
     const [isOpen, setIsOpen] = useState(false);
 
@@ -98,10 +100,10 @@ const Navigation = () => {
                                     {isOpen && (
                                         <div className="dropdown-menu">
                                             <div className="dropdown-option" onClick={() => handleOptionClick('Option 1')}>
-                                                <Link to="/account"> <button className='cart-btn flex items-center justify-center w-full p-1 gap-1'>Account<FaUser /></button> </Link>
+                                                <Link to="/user-orders"> <button className='cart-btn flex items-center justify-center w-full p-1 gap-1'>Orders<FaUser /></button> </Link>
                                             </div>
                                             <div className="dropdown-option" onClick={() => handleOptionClick('Option 1')}>
-                                                <Link to="/checkout"> <button className='cart-btn flex items-center justify-center w-full p-1 gap-1'>Cart<IoBagHandleSharp /></button> </Link>
+                                                <Link to="/checkout"> <button className='cart-btn flex items-center justify-center w-full p-1 gap-1'>Cart<IoBagHandleSharp /> ({cartItems.length})</button> </Link>
                                             </div>
                                             <div className="dropdown-option" onClick={() => handleOptionClick('Option 1')}>
                                                 <button onClick={handleLogout} className='cart-btn flex items-center justify-center w-full p-1 gap-1'>Logout <MdLogout /></button>
@@ -158,7 +160,7 @@ const Navigation = () => {
                         </ul>
                     </nav>
                     <div className='authentication-btn'>
-                        {user ? <><Link to="/account">
+                        {user ? <><Link to="/user-orders">
                             <button className='login-btn'>Account</button>
                         </Link>
                             <Link to="">

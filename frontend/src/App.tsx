@@ -18,6 +18,8 @@ import Singleclothes from "./pages/Singleclothes";
 import Cart from "./pages/Cart";
 import { useAuthContext } from "./context/useAuthContext";
 import Users from "./components/Dashboard Components/User/Users";
+import UserOrders from "./components/Dashboard Components/Orders/UserOrders";
+import Orders from "./pages/Orders";
 
 const App = () => {
   const { user } = useAuthContext();
@@ -43,6 +45,7 @@ const App = () => {
           element={!user ? <Registration /> : <Navigate to="/" />}
         />
         <Route path="/clothes" element={<Clothes />} />
+        <Route path="/user-orders" element={<Orders />} />
         <Route path="/clothes/:id" element={<Singleclothes />} />(
         <Route
           path="/dashboard/*"
@@ -51,6 +54,7 @@ const App = () => {
           <Route index element={<DashboardContent />} />
           <Route path="clothes" element={<DashboardClothes />} />
           <Route path="users" element={<Users />} />
+          <Route path="orders" element={<UserOrders />} />
         </Route>
         ) : <Route path="/" element={<Home />} />
         <Route path="/:verification" element={<Verify />} />

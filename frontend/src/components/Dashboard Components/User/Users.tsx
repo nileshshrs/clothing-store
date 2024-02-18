@@ -2,13 +2,22 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify';
 import "./Users.scss"
+import { useAuthContext } from '../../../context/useAuthContext';
 
 const Users = () => {
+    const { user } = useAuthContext()
+    const id = user?.user?.id
+    const accesstoken = user ? user.token : null
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(true);
     const fetchData = async () => {
         try {
-            const res = await axios.get("http://localhost:8080/api/v1/users/all");
+            const res = await axios.get("http://localhost:8080/api/v1/users/all", {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${accesstoken}`
+                }
+            });
             setUsers(res.data);
         } catch (error) {
             console.error("Error fetching user details:", error);
@@ -25,7 +34,12 @@ const Users = () => {
     const handleDeleteUser = async (userId) => {
         try {
             // Make an API call to delete the user
-            const response = await axios.delete(`http://localhost:8080/api/v1/users/delete/${userId}`);
+            const response = await axios.delete(`http://localhost:8080/api/v1/users/delete/${userId}`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${accesstoken}`
+                }
+            });
 
             // Handle successful deletion
             toast.success(response.data);

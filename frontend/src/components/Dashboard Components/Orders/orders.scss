@@ -1,0 +1,35 @@
+.orders-container {
+  padding: 1rem;
+  width: 95%;
+  h3 {
+    font-family: var(--font-sans);
+    font-weight: bold;
+    font-size: var(--fz-xxl);
+    margin-bottom: 1rem;
+  }
+  .orders {
+    overflow-x: auto;
+    table {
+      white-space: nowrap;
+      text-align: center;
+      font-family: var(--font-sans);
+      font-size: var(--fz-xs);
+      width: 100%;
+      th {
+        width: 100%;
+        padding: 0.5rem 0.25rem;
+        tr {
+          padding: 0.5rem 0.25rem;
+        }
+      }
+      tbody {
+        font-family: var(--font-sans);
+        font-size: var(--fz-xs);
+
+        td {
+          padding: 0.5rem 0.25rem;
+        }
+      }
+    }
+  }
+}
