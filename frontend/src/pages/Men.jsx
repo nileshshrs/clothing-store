@@ -7,14 +7,15 @@ import "../global css/clothes.scss";
 import "../components/Clothes/sidebar.scss";
 import axios from "axios";
 import { useAuthContext } from "../context/useAuthContext";
-import { addToCart } from "../components/AddToCart";
 import { useCartContext } from "../context/CartContext";
+import { addToCart } from "../components/AddToCart";
 
 const Men = () => {
   const [openSidebar, setOpenSidebar] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const { user } = useAuthContext();
   const { fetchCartData } = useCartContext();
+
   const userId = user ? user.user.id : null;
   const accesstoken = user ? user.token : null;
 

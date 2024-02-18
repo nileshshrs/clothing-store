@@ -2,9 +2,11 @@ import React from "react";
 import "../../../global css/Tabview.scss";
 import { Link } from "react-router-dom";
 import { useClothesContext } from "../../../context/ClothesContext";
+import { useCartContext } from "../../../context/CartContext";
 
 const Tabview2 = () => {
   const { clothesData, loading } = useClothesContext();
+  const { fetchCartData } = useCartContext();
  
 
   // Filter clothes where category is 'Male' and new is true

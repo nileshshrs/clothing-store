@@ -8,11 +8,19 @@
     background-color: #fff;
     overflow-y: auto;
     max-height: 200px;
+    min-height: 200px;
     transition: box-shadow 0.3s; /* Smooth transition for box shadow */
     height: 100%;
   
     &:hover {
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* Slightly stronger box shadow on hover */
+    }
+    .cards{
+      font-size: var(--fz-xxl);
+    }
+    h1{
+      font-size: var(--fz-xxl);
+      font-weight: bold;
     }
   
     h2 {
