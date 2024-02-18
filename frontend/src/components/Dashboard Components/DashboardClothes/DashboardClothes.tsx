@@ -4,13 +4,15 @@ import { Link } from 'react-router-dom';
 import "./dashboardclothes.scss"
 import EditClothes from '../Add Clothes/EditClothes';
 import axios from 'axios';
+import { useAuthContext } from '../../../context/useAuthContext';
 
 
 const DashboardClothes = () => {
 
 
     const { clothesData, handleEditSlide, loading, getSingleClothes, getClothes, deleteClothes } = useClothesContext();
-
+    const { user } = useAuthContext()
+    const accesstoken = user ? user.token : null
     const update = (id) => {
         handleEditSlide()
         getSingleClothes(id)
@@ -18,13 +20,18 @@ const DashboardClothes = () => {
 
     const updateBooleanValue = async (id, field) => {
         try {
-            // Make a PATCH request to the API to update the boolean field
-            const response = await axios.patch(`http://localhost:8080/api/v1/clothing/update/${id}`, {
-                [field]: !clothesData.find(clothes => clothes.id === id)[field], // Toggle the boolean value
-            });
-
-            // Handle the response, you may want to update your local state or fetch data again
-            console.log(response.data); // Log the response, update your state as needed
+            const response = await axios.patch(
+                `http://localhost:8080/api/v1/clothing/update/${id}`,
+                {
+                    [field]: !clothesData.find(clothes => clothes.id === id)[field], // Toggle the boolean value
+                },
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${accesstoken}`
+                    }
+                }
+            );
             getClothes()
         } catch (error) {
             console.error('Error updating boolean value:', error);

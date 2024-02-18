@@ -1,97 +1,40 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import "../../../global css/Tabview.scss";
-
+import { Link } from "react-router-dom";
+import { useClothesContext } from "../../../context/ClothesContext";
 
 const Tabview2 = () => {
+  const { clothesData, loading } = useClothesContext();
+ 
+
+  // Filter clothes where category is 'Male' and new is true
+  const filteredClothes = clothesData.filter(
+    (clothes) => clothes.category === "Female" && clothes.new === true && clothes.inStock === true
+  );
+  console.log(filteredClothes)
+
   return (
     <div className="card-container">
-      <div className="clothes-card">
-        <div className="card-img">
-          <Link to="">
-            <img
-              src="https://cdn.shopify.com/s/files/1/1368/3463/files/BLACK-FEATHERLIGHT-PIMA-TEE_768x_crop_center@2x.progressive.jpg?v=1705358729"
-              alt=""
-              className="max-w-[270px] min-h-[370px]"
-            />
-          </Link>
-          <button className="quick-add">Quick Add</button>
-        </div>
-        <div className="card-title">
-          <span>Plum</span>
-          <h3>Corflex Sweetheart Tank</h3>
-          <p>$68</p>
-        </div>
-      </div>
-      <div className="clothes-card">
-        <div className="card-img">
-          <Link to="">
-            <img
-              src="https://cdn.shopify.com/s/files/1/1368/3463/files/BLACK-FEATHERLIGHT-PIMA-TEE_768x_crop_center@2x.progressive.jpg?v=1705358729"
-              alt=""
-              className="max-w-[270px] min-h-[370px]"
-            />
-          </Link>
-          <button className="quick-add">Quick Add</button>
-        </div>
-        <div className="card-title">
-          <span>Plum</span>
-          <h3>Corflex Sweetheart Tank</h3>
-          <p>$68</p>
-        </div>
-      </div>
-      <div className="clothes-card">
-        <div className="card-img">
-          <Link to="">
-            <img
-              src="https://cdn.shopify.com/s/files/1/1368/3463/files/BLACK-FEATHERLIGHT-PIMA-TEE_768x_crop_center@2x.progressive.jpg?v=1705358729"
-              alt=""
-              className="max-w-[270px] min-h-[370px]"
-            />
-          </Link>
-          <button className="quick-add">Quick Add</button>
-        </div>
-        <div className="card-title">
-          <span>Plum</span>
-          <h3>Corflex Sweetheart Tank</h3>
-          <p>$68</p>
-        </div>
-      </div>
-      <div className="clothes-card">
-        <div className="card-img">
-          <Link to="">
-            <img
-              src="https://cdn.shopify.com/s/files/1/1368/3463/files/BLACK-FEATHERLIGHT-PIMA-TEE_768x_crop_center@2x.progressive.jpg?v=1705358729"
-              alt=""
-              className="max-w-[270px] min-h-[370px]"
-            />
-          </Link>
-          <button className="quick-add">Quick Add</button>
-        </div>
-        <div className="card-title">
-          <span>Plum</span>
-          <h3>Corflex Sweetheart Tank</h3>
-          <p>$68</p>
-        </div>
-      </div>
-      <div className="clothes-card">
-        <div className="card-img">
-          <Link to="">
-            <img
-              src="https://cdn.shopify.com/s/files/1/1368/3463/files/BLACK-FEATHERLIGHT-PIMA-TEE_768x_crop_center@2x.progressive.jpg?v=1705358729"
-              alt=""
-              className="max-w-[270px] min-h-[370px]"
-            />
-          </Link>
-          <button className="quick-add">Quick Add</button>
-        </div>
-        <div className="card-title">
-          <span>Plum</span>
-          <h3>Corflex Sweetheart Tank</h3>
-          <p>$68</p>
-        </div>
-      </div>
-
+      {!loading &&
+        filteredClothes.map((clothes) => (
+          <div key={clothes.id} className="clothes-card">
+            <div className="card-img">
+              <Link to="">
+                <img
+                  src={clothes.imagePath}
+                  alt=""
+                  className="max-w-[270px] min-h-[370px]"
+                />
+              </Link>
+              <button className="quick-add">Quick Add</button>
+            </div>
+            <div className="card-title">
+              <span>{clothes.brand}</span>
+              <h3>{clothes.name}</h3>
+              <p>${clothes.price}</p>
+            </div>
+          </div>
+        ))}
     </div>
   );
 };

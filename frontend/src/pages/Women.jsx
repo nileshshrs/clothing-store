@@ -10,7 +10,7 @@ import { useAuthContext } from '../context/useAuthContext';
 import { addToCart } from "../components/AddToCart";
 import { useCartContext } from '../context/CartContext';
 
-const Clothes = () => {
+const Women = () => {
     const [openSidebar, setOpenSidebar] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState('All');
     const { user } = useAuthContext()
@@ -19,15 +19,16 @@ const Clothes = () => {
     const accesstoken =user ?user.token: null
 
 
+
     const onClickSidebarBtn = () => {
         setOpenSidebar(!openSidebar);
     };
 
     const { clothesData, loading } = useClothesContext();
-
-    console.log(clothesData)
+ 
     // Filter clothes based on the selected category
-    const filteredClothes = clothesData.filter(clothes => {
+    const femaleClothes = clothesData.filter(clothes => clothes.category === 'Female');
+    const filteredClothes = femaleClothes.filter(clothes => {
         if (selectedCategory === 'All') {
             return true; // Show all clothes
         } else {
@@ -63,15 +64,9 @@ const Clothes = () => {
                         onClick={() => setSelectedCategory('All')}>All
                     </button>
 
-                    <button className={`${selectedCategory === 'Male' ? 'bg-black text-white' : 'bg-white text-black'
-                        } px-3 py-1 rounded-[3px] border border-black`}
-                        onClick={() => setSelectedCategory('Male')}>Men
-                    </button>
+                 
 
-                    <button className={`${selectedCategory === 'Female' ? 'bg-black text-white' : 'bg-white text-black'
-                        } px-3 py-1 rounded-[3px] border border-black`}
-                        onClick={() => setSelectedCategory('Female')}>Women
-                    </button>
+         
 
                     <button className={`${selectedCategory === 'T-Shirt' ? 'bg-black text-white' : 'bg-white text-black'
                         } px-3 py-1 rounded-[3px] border border-black`}
@@ -138,4 +133,4 @@ const Clothes = () => {
     );
 };
 
-export default Clothes;
+export default Women;

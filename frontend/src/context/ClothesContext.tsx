@@ -2,6 +2,7 @@ import axios from "axios";
 import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLogout } from "./useLogout";
+import { useAuthContext } from "./useAuthContext";
 
 const ClothesContext = createContext();
 
@@ -9,6 +10,8 @@ export const ClothesProvider = ({ children }) => {
     const [singleClothes, setSingleClothes] = useState(null);
     const [clothesData, setClothesData] = useState([]);
     const [loading, setLoading] = useState(true);
+    const { user } = useAuthContext()
+    const accesstoken = user ? user.token : null
 
     const navigate = useNavigate()
     const { logout } = useLogout()
@@ -54,7 +57,12 @@ export const ClothesProvider = ({ children }) => {
         try {
             const response = await axios.patch(
                 `http://localhost:8080/api/v1/clothing/update/${clothesId}`,
-                clothesData
+                clothesData, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${accesstoken}`
+                }
+            }
             );
             const updatedClothes = response.data;
             console.log(updatedClothes)
@@ -69,7 +77,12 @@ export const ClothesProvider = ({ children }) => {
 
     const deleteClothes = async (clothesId) => {
         try {
-            await axios.delete(`http://localhost:8080/api/v1/clothing/${clothesId}`);
+            await axios.delete(`http://localhost:8080/api/v1/clothing/${clothesId}`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${accesstoken}`
+                }
+            });
         } catch (error) {
             console.error("Error deleting clothes:", error);
         }

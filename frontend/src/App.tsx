@@ -20,6 +20,8 @@ import { useAuthContext } from "./context/useAuthContext";
 import Users from "./components/Dashboard Components/User/Users";
 import UserOrders from "./components/Dashboard Components/Orders/UserOrders";
 import Orders from "./pages/Orders";
+import Men from "./pages/Men";
+import Women from "./pages/Women";
 import Success from "./pages/Success";
 
 const App = () => {
@@ -46,6 +48,8 @@ const App = () => {
           element={!user ? <Registration /> : <Navigate to="/" />}
         />
         <Route path="/clothes" element={<Clothes />} />
+        <Route path="/clothes/men" element={<Men />} />
+        <Route path="/clothes/women" element={<Women />} />
         <Route path="/user-orders" element={<Orders />} />
         <Route path="/clothes/:id" element={<Singleclothes />} />(
         <Route
