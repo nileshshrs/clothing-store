@@ -23,10 +23,16 @@ export const ClothesProvider = ({ children }) => {
 
     const create = async (data) => {
         try {
-            await axios.post("http://localhost:8080/api/v1/clothing/create", data);
+            await axios.post("http://localhost:8080/api/v1/clothing/create", data, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${accesstoken}`
+                }
+            });
             getClothes()
         } catch (err) {
             console.log(err);
+            logout()
         }
     };
 
@@ -71,7 +77,7 @@ export const ClothesProvider = ({ children }) => {
 
         } catch (error) {
             console.error("Error updating clothes:", error);
-
+            logout()
         }
     };
 
@@ -83,8 +89,10 @@ export const ClothesProvider = ({ children }) => {
                     'Authorization': `Bearer ${accesstoken}`
                 }
             });
+            getClothes()
         } catch (error) {
             console.error("Error deleting clothes:", error);
+            logout()
         }
     };
 
