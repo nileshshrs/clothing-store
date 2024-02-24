@@ -36,6 +36,10 @@ public class Users {
     @Column(name = "verification")
     private boolean verified= false;
 
+    public Users() {
+
+    }
+
     // Getters and setters...
 
     public Long getId() {
