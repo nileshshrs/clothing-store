@@ -33,6 +33,9 @@ const EditClothes = () => {
             setValue("description", singleClothes?.description || "");
             setUrl(singleClothes?.imagePath || ""); // Assuming imagePath is the URL of the image
             setSelectedImage(singleClothes?.imagePath || "");
+            setNewChecked(singleClothes?.isNew || false);
+            setInStockChecked(singleClothes?.inStock || false);
+            setBestSellingChecked(singleClothes?.bestSelling || false);
         }
     }, [singleClothes]);
 
@@ -45,6 +48,9 @@ const EditClothes = () => {
     const [progress, setProgress] = useState(null)
     const [url, setUrl] = useState("")
     const [error, setError] = useState("")
+    const [newChecked, setNewChecked] = useState(false);
+    const [inStockChecked, setInStockChecked] = useState(false);
+    const [bestSellingChecked, setBestSellingChecked] = useState(false);
 
     const imageInputRef = useRef(null);
 
@@ -181,9 +187,12 @@ const EditClothes = () => {
                 color: data.color.map((item) => item.value),
                 imagePath: url,
                 description: data.description.trim(),
+                new: newChecked,
+                inStock: inStockChecked,
+                bestselling: bestSellingChecked,
             };
 
-           await updateClothes(singleClothes.id,Data)
+            await updateClothes(singleClothes.id, Data)
 
             toast.success("clothes updated successfully", {
                 position: "top-right",
@@ -409,7 +418,41 @@ const EditClothes = () => {
                             )}
                         />
                     </div>
-
+                    <div className="flex items-center justify-start gap-3">
+                        <div className="">
+                            <label className="inline-flex gap-2 text-xs font-bold items-center justify-between">
+                                <input
+                                    type="checkbox"
+                                    checked={newChecked}
+                                    onChange={() => setNewChecked(!newChecked)}
+                                    className=""
+                                />
+                                New Arrivals
+                            </label>
+                        </div>
+                        <div className="">
+                            <label className="inline-flex gap-2 text-xs font-bold items-center justify-between">
+                                <input
+                                    type="checkbox"
+                                    checked={inStockChecked}
+                                    onChange={() => setInStockChecked(!inStockChecked)}
+                                    className=""
+                                />
+                                In Stock
+                            </label>
+                        </div>
+                        <div className="">
+                            <label className="inline-flex gap-2 text-xs font-bold items-center justify-between">
+                                <input
+                                    type="checkbox"
+                                    checked={bestSellingChecked}
+                                    onChange={() => setBestSellingChecked(!bestSellingChecked)}
+                                    className=""
+                                />
+                                Best Selling
+                            </label>
+                        </div>
+                    </div>
                     <div className="custom-input">
                         <button type="submit">Submit</button>
                     </div>
