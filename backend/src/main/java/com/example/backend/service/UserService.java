@@ -15,6 +15,8 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private EmailService emailService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -110,5 +112,22 @@ public class UserService {
 
         userRepository.delete(existingUser);
     }
+    public synchronized void sendForgotPasswordEmail(String email) {
+        Optional<Users> optionalUser = userRepository.findByEmail(email);
+        if (optionalUser.isPresent()) {
+            Users user = optionalUser.get();
+
+            // Generate and save a reset token (along with an expiration timestamp) in the database
+            // You may want to use a service for this
+
+            // Send a forgot password email to the user with a link containing the reset token
+            String resetToken = email; // Replace with actual generated token
+            String resetLink = "http://localhost:5173/reset-password?token=" + resetToken; // Replace with your actual reset password endpoint
+            emailService.sendForgotPasswordEmail(email, resetLink);
+        } else {
+            throw new IllegalArgumentException("User not found for email: " + email);
+        }
+    }
+
 
 }

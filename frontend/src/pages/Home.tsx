@@ -40,7 +40,7 @@ const Home = () => {
             </Link>
           </div>
           <h3 className="">
-            <Link to="">Men's Top</Link>
+            <Link to="/clothes/men">Men's Top</Link>
           </h3>
         </div>
         <div className="cards-container">
@@ -50,7 +50,7 @@ const Home = () => {
             </Link>
           </div>
           <h3 className="">
-            <Link to="">Men's Bottom</Link>
+            <Link to="/clothes/men">Men's Bottom</Link>
           </h3>
         </div>
         <div className="cards-container">
@@ -60,17 +60,17 @@ const Home = () => {
             </Link>
           </div>
           <h3 className="">
-            <Link to="">Women's Top</Link>
+            <Link to="/clothes/women">Women's Top</Link>
           </h3>
         </div>
         <div className="cards-container">
           <div className="cards">
-            <Link to="">
+            <Link to="/clothes/women">
               <img src={img4} alt="" className="w-[300px] max-h-[385px]" />
             </Link>
           </div>
           <h3 className="">
-            <Link to="">Women's Bottom</Link>
+            <Link to="/clothes/women">Women's Bottom</Link>
           </h3>
         </div>
       </section>

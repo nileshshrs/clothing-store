@@ -78,6 +78,24 @@ public class AuthenticationController {
             return ResponseEntity.badRequest().body(Map.of("message", e.getMessage()));
         }
     }
+    @PatchMapping("/update-password")
+    public ResponseEntity<?> updatePassword(@RequestBody Map<String, String> request) {
+        try {
+            String email = request.get("email");
+            String password = request.get("password");
 
+            Users updatedUser = authenticationService.updatePassword(email, password);
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("message", "Password updated successfully");
+            response.put("user", updatedUser);
+
+            return ResponseEntity.ok(response);
+        } catch (RuntimeException e) {
+            Map<String, Object> errorResponse = new HashMap<>();
+            errorResponse.put("error", e.getMessage());
+            return ResponseEntity.badRequest().body(errorResponse);
+        }
+    }
 
 }

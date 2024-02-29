@@ -25,14 +25,14 @@ const Orders = () => {
 
                 setOrders(userOrders);
             } catch (error) {
-                console.error("Error fetching user information:", error);
+                // console.error("Error fetching user information:", error);
             }
         };
         fetchOrders()
     }, [])
 
     const handleDeleteOrder = async (orderId) => {
-        console.log(orderId)
+        // console.log(orderId)
         try {
             // Make an API call to delete the order
             const response = await axios.delete(`http://localhost:8080/api/v1/orders/delete/${orderId}`, {
@@ -51,12 +51,12 @@ const Orders = () => {
         } catch (error) {
             // Handle order deletion error
             toast.error("Error deleting order");
-            console.error("Error deleting order:", error);
+            // console.error("Error deleting order:", error);
         }
     };
 
     return (
-        <div className="w-[95%] container  mt-8 mb-8 sm:w-full lg:w-2/3 xl:w-3/4 mx-auto">
+        <div className="w-[95%] container  mt-8 mb-8 sm:w-full lg:w-2/3 xl:w-3/4 mx-auto min-h-screen">
             <h3 className="font-bold text-gray-900 text-3xl mb-6">Your Orders</h3>
             <div className="max-w-4xl mx-auto  shadow-lg overflow-x-auto" style={{ maxWidth: "1400px" }}>
                 <table className="w-full table-auto border-collapse">

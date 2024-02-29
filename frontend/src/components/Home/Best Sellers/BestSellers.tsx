@@ -32,7 +32,7 @@ const BestSellers = () => {
                     </div>
                 </div>
                 <div className="shop-btn">
-                    <Link to="">
+                    <Link to="/clothes">
                         <button>Shop All</button>
                     </Link>
                 </div>

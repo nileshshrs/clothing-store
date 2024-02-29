@@ -30,7 +30,7 @@ const Registration = () => {
   const { errors, isValid } = formState;
 
   const onSubmit = (data) => {
-    console.log("Form state before submission:", formState);
+    // console.log("Form state before submission:", formState);
     if (!isValid) {
       return;
     }
@@ -56,7 +56,7 @@ const Registration = () => {
       }
     },
     onSuccess: () => {
-      console.log("Registration successful");
+      // console.log("Registration successful");
       //data, variables, context can use these parameters
       // console.log("Returned data:", data);
       // console.log("Variables passed to mutation:", variables);
@@ -64,8 +64,13 @@ const Registration = () => {
       //email: johndoe@example.com, password: securePassword12;
       //email: nileshshr97@gmail.com, password: siberiaV2
       //email: admin@admin.com, password:securepassword
-      toast.success("Sign Up Successful. Please login!", {
+      toast.success("Sign Up Successful. Please verify email!", {
         position: "top-right",
+        style: {
+          height: "25px", // Adjust this value to your desired height
+          fontSize: "13px",
+          margin: 0,
+        },
       });
 
       setTimeout(() => {
@@ -182,7 +187,10 @@ const Registration = () => {
           <button type="submit">Sign up</button>
         </div>
         <div className="register">
-          Already have an account? <span><Link to="/sign-up">sign in.</Link></span>
+          Already have an account? <span><Link to="/sign-in">sign in.</Link></span>
+        </div>
+        <div className="register text-center">
+          Note: use gmail account to login, register or account recovery
         </div>
       </form>
       <ToastContainer />

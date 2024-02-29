@@ -21,10 +21,10 @@ const Banner = () => {
         <h2>Refresh Your Wardrobe</h2>
         <h3>Refined Style. Versatile Comfort</h3>
         <div className="flex justify-content-between items-center">
-          <Link to="/">
+          <Link to="/clothes/women">
             <button className="px-[13px] py-[12px]">Shop Women's</button>
           </Link>
-          <Link to="/">
+          <Link to="/clothes/men">
             <button className="p-[13px]">Shop Men's</button>
           </Link>
         </div>

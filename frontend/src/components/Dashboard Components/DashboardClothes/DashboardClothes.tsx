@@ -34,7 +34,7 @@ const DashboardClothes = () => {
             );
             getClothes()
         } catch (error) {
-            console.error('Error updating boolean value:', error);
+            // console.error('Error updating boolean value:', error);
         }
     };
 
@@ -60,7 +60,10 @@ const DashboardClothes = () => {
 
                                     </div>
                                     <div className="card-title">
-                                        <span className='capitalize'>{clothes.color[0]}</span>
+                                        <div className='flex justify-between items-center w-full'>
+                                            <span className='capitalize'>{clothes.color[0]}</span>
+                                            <span className='capitalize text-end'>{clothes.type}</span>
+                                        </div>
                                         <h3 className='capitalize'>{clothes.name}</h3>
                                         <p className='capitalize'>$ {clothes.price}</p>
                                         <div className='flex gap-1'>

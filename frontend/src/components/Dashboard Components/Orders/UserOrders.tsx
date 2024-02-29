@@ -19,9 +19,9 @@ const UserOrders = () => {
             });
             res.data.sort((a, b) => a.orderId - b.orderId);
             setOrders(res.data);
-            console.log(res.data);
+            // console.log(res.data);
         } catch (error) {
-            console.error("Error fetching cart:", error);
+            // console.error("Error fetching cart:", error);
         }
     };
 
@@ -45,11 +45,11 @@ const UserOrders = () => {
 
             fetchOrders();
 
-            console.log(order.status);
-            console.log(order.orderId);
+            // console.log(order.status);
+            // console.log(order.orderId);
             setStatusbtn(statusbtn === "Complete" ? "Pending" : "Complete");
         } catch (e) {
-            console.error("Error updating", e);
+            // console.error("Error updating", e);
         }
     };
 
@@ -68,7 +68,7 @@ const UserOrders = () => {
             fetchOrders(); // Refresh the orders after deletion
 
         } catch (error) {
-            console.error("Error deleting order:", error);
+            // console.error("Error deleting order:", error);
         }
     };
 

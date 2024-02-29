@@ -24,6 +24,9 @@ import Men from "./pages/Men";
 import Women from "./pages/Women";
 import Success from "./pages/Success";
 import Search from "./pages/Search";
+import Forgotpassword from "./pages/Forgotpassword";
+import Accountrecovery from "./pages/Accountrecovery";
+import Footer from "./components/Footer";
 
 const App = () => {
   const { user } = useAuthContext();
@@ -45,6 +48,10 @@ const App = () => {
           element={!user ? <Login /> : <Navigate to="/" />}
         />
         <Route
+          path="/forgot-password"
+          element={!user ? <Forgotpassword /> : <Navigate to="/" />}
+        />
+        <Route
           path="/sign-up"
           element={!user ? <Registration /> : <Navigate to="/" />}
         />
@@ -64,9 +71,11 @@ const App = () => {
         </Route>
         ) : <Route path="/" element={<Home />} />
         <Route path="/:verification" element={<Verify />} />
-        <Route path="/success" element={<Success/>}/>
+        <Route path="/:reset-password" element={<Accountrecovery />} />
+        <Route path="/success" element={<Success />} />
         <Route path="/search/:searchKey" element={<Search />} />
       </Routes>
+      {showNavigation && <Footer />}
     </>
   );
 };

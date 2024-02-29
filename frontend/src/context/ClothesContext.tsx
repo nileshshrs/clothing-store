@@ -31,7 +31,7 @@ export const ClothesProvider = ({ children }) => {
             });
             getClothes()
         } catch (err) {
-            console.log(err);
+            // console.log(err);
             logout()
         }
     };
@@ -71,12 +71,12 @@ export const ClothesProvider = ({ children }) => {
             }
             );
             const updatedClothes = response.data;
-            console.log(updatedClothes)
+            // console.log(updatedClothes)
 
             getClothes()
 
         } catch (error) {
-            console.error("Error updating clothes:", error);
+            // console.error("Error updating clothes:", error);
             logout()
         }
     };
@@ -91,7 +91,7 @@ export const ClothesProvider = ({ children }) => {
             });
             getClothes()
         } catch (error) {
-            console.error("Error deleting clothes:", error);
+            // console.error("Error deleting clothes:", error);
             logout()
         }
     };

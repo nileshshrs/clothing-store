@@ -22,4 +22,12 @@ public class EmailService {
 
         javaMailSender.send(message);
     }
+    public void sendForgotPasswordEmail(String toEmail, String resetLink) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(toEmail);
+        message.setSubject("Forgot Password");
+        message.setText("Click the following link to reset your password: " + resetLink);
+
+        javaMailSender.send(message);
+    }
 }

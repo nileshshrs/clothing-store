@@ -34,11 +34,11 @@ export const useSignin = () => {
           }
         }
       } else {
-        console.error("Response data is undefined");
+        // console.error("Response data is undefined");
       }
     } catch (error) {
       // Handle network errors or other exceptions
-      console.log(error.response.data.message)
+      // console.log(error.response.data.message)
       setError(error.response.data.message)
     }
   };

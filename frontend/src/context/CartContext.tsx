@@ -27,7 +27,7 @@ export const CartProvider = ({ children }) => {
             })
             setCartItems(response.data);
         } catch (error) {
-            console.error("Error fetching cart data:", error);
+            // console.error("Error fetching cart data:", error);
             if(id && accesstoken){
                 logout()
             }

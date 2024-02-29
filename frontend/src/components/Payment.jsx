@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import KhaltiCheckout from "khalti-checkout-web";
 import axios from "axios";
 import { useAuthContext } from "../context/useAuthContext";
+import {useCartContext} from "../context/CartContext"
+import { useNavigate } from "react-router-dom";
 
 const publicTestKey = "test_public_key_402c2b0e98364222bb1c1ab02369cefd";
 
@@ -12,11 +14,15 @@ const Payment = ({
   paymentMethod,
   total,
   setError,
-  fetchCart,
 }) => {
   const { user } = useAuthContext();
-  const userId = user ? user.id : null;
+  const {fetchCartData} = useCartContext()
+  const userId = user ? user.user.id : null;
+  const accesstoken = user ? user.token : null
   const [checkout, setCheckout] = useState(null);
+  const navigate= useNavigate()
+  // console.log(userId)
+  // console.log(accesstoken)
 
   const config = {
     publicKey: publicTestKey,
@@ -36,17 +42,27 @@ const Payment = ({
         const saveShippingInfo = async (data) => {
           try {
             const response = await axios.post(
-              `http://localhost:8080/api/v2/orders/create`,
-              data
+              `http://localhost:8080/api/v1/orders/create`,
+              data, {
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${accesstoken}`
+              }
+            }
             );
 
             if (response.status >= 200 && response.status < 300) {
               console.log("Shipping info saved successfully!");
               try {
-                const url = `http://localhost:8080/api/v2/carts/deleteByUserId/${userId}`;
-                const res = await axios.delete(url);
+                const url = `http://localhost:8080/api/v1/carts/deleteByUserId/${userId}`;
+                const res = await axios.delete(url, {
+                  headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${accesstoken}`
+                  }
+                });
                 console.log(res.data);
-                fetchCart();
+                fetchCartData();
               } catch (error) {
                 console.log(error);
               }
@@ -58,6 +74,7 @@ const Payment = ({
           }
         };
         saveShippingInfo(data);
+        navigate("/success")
       },
       onError(error) {
         console.log(error);

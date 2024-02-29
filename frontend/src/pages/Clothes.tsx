@@ -25,7 +25,7 @@ const Clothes = () => {
 
     const { clothesData, loading } = useClothesContext();
 
-    console.log(clothesData)
+    // console.log(clothesData)
     // Filter clothes based on the selected category
     const filteredClothes = clothesData.filter(clothes => {
         if (selectedCategory === 'All') {
@@ -42,7 +42,7 @@ const Clothes = () => {
             addToCart(clothes.id, userId, clothes.color[0], clothes.size[0], accesstoken)
             fetchCartData()
         } else {
-            console.log(`Adding size: ${clothes.size[1]}`);
+            // console.log(`Adding size: ${clothes.size[1]}`);
             addToCart(clothes.id, userId, clothes.color[0], clothes.size[1], accesstoken)
             fetchCartData()
             // Add the logic to handle the case when there are multiple sizes

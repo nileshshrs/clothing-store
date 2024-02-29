@@ -59,7 +59,6 @@ const Navigation = () => {
 
     const searchProduct = (e) => {
         e.preventDefault();
-        console.log(searchKey)
         navigate(`/search/${searchKey}`)
     };
     return (

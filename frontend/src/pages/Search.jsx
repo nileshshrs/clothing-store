@@ -43,7 +43,7 @@ const Search = () => {
       );
 
     } else {
-      console.log(`Adding size: ${clothes.size[1]}`);
+      // console.log(`Adding size: ${clothes.size[1]}`);
       addToCart(
         clothes.id,
         userId,

@@ -72,7 +72,7 @@ const Cart = () => {
                 );
 
                 if (response.status >= 200 && response.status < 300) {
-                    console.log("Shipping info saved successfully!");
+                    // console.log("Shipping info saved successfully!");
                     try {
                         const url = `http://localhost:8080/api/v1/carts/deleteByUserId/${userId}`;
                         const res = await axios.delete(url, {
@@ -81,18 +81,18 @@ const Cart = () => {
                                 'Authorization': `Bearer ${accesstoken}`
                             }
                         });
-                        console.log(res.data);
+                        // console.log(res.data);
                         fetchCartData();
                         setPaymentSuccess(true); // Set payment success state to true
                         navigate("/success")
                     } catch (error) {
-                        console.log(error);
+                        // console.log(error);
                     }
                 } else {
-                    console.error("Unexpected status code:", response.status);
+                    // console.error("Unexpected status code:", response.status);
                 }
             } catch (error) {
-                console.error("Error saving shipping info:", error.message);
+                // console.error("Error saving shipping info:", error.message);
             }
         }
     }
@@ -113,7 +113,7 @@ const Cart = () => {
             fetchCartData();
 
         } catch (error) {
-            console.error("Error updating cart:", error);
+            // console.error("Error updating cart:", error);
             logout()
         }
     };
@@ -134,7 +134,7 @@ const Cart = () => {
                 fetchCartData();
 
             } catch (error) {
-                console.error("Error updating cart:", error);
+                // console.error("Error updating cart:", error);
                 logout()
             }
         }
@@ -158,7 +158,7 @@ const Cart = () => {
             fetchCartData();
 
         } catch (error) {
-            console.error("Error deleting cart:", error);
+            // console.error("Error deleting cart:", error);
             logout()
         }
     };

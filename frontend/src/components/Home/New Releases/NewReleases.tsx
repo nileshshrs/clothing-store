@@ -9,7 +9,7 @@ const NewReleases = () => {
   const switchTab = (index) => {
     setTab(index);
   };
-  console.log(tab);
+
 
   return (
     <section className="new-releases">
@@ -32,7 +32,7 @@ const NewReleases = () => {
           </div>
         </div>
         <div className="shop-btn">
-          <Link to="">
+          <Link to="/clothes">
             <button>Shop All</button>
           </Link>
         </div>

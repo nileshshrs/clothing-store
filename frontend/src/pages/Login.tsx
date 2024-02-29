@@ -21,7 +21,7 @@ const Login = () => {
   return (
     <section className="nOpQrS py-5">
       <form>
-        <h2>Sign up.</h2>
+        <h2>Sign in.</h2>
         <p className="errMsg">{error}</p>
 
         <div className="aZpLmN">
@@ -50,6 +50,9 @@ const Login = () => {
         </div>
         <div className="register">
           Don't have an account? <span><Link to="/sign-up">sign up.</Link></span>
+        </div>
+        <div className="register text-center">
+          Note: use gmail account to login, register or account recovery
         </div>
       </form>
       <ToastContainer />

@@ -20,7 +20,7 @@ const Users = () => {
             });
             setUsers(res.data);
         } catch (error) {
-            console.error("Error fetching user details:", error);
+            // console.error("Error fetching user details:", error);
             toast.error("Error fetching user details");
         } finally {
             setLoading(false);
@@ -49,7 +49,7 @@ const Users = () => {
         } catch (error) {
             // Handle deletion error
             toast.error("Error deleting user");
-            console.error("Error deleting user:", error);
+            // console.error("Error deleting user:", error);
         }
     };
 

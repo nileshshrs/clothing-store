@@ -67,7 +67,7 @@ const EditClothes = () => {
             reader.onload = (event) => {
                 const imageUrl = event.target.result;
                 setSelectedImage(imageUrl);
-                console.log(url)
+                // console.log(url)
                 setImage(file); // Set the 'image' state to the selected file
                 setIsImageSelected(true);
             };

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 @Transactional//treat every single method as single transaction so it does not mess with deatabase
@@ -82,5 +83,28 @@ public class AuthenticationService {
             throw new RuntimeException(e.getMessage());
         }
     }
+    public Users updatePassword(String email, String password) {
+        Optional<Users> optionalUser = userRepository.findByEmail(email);
+
+        if (optionalUser.isPresent()) {
+            Users user = optionalUser.get();
+
+            // Encode the new password
+            String encodedPassword = passwordEncoder.encode(password);
+
+            // Update the user's password
+            user.setPassword(encodedPassword);
+
+            // Save the updated user
+            userRepository.save(user);
+
+            // You may choose to send an email notification about the password change here if needed
+
+            return user;
+        } else {
+            throw new RuntimeException("User not found for email: " + email);
+        }
+    }
+
 
 }

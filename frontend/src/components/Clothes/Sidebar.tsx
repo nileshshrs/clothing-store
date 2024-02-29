@@ -16,27 +16,27 @@ const Sidebar = ({ openSidebar, click }) => {
             <div className='link-container'>
                 <h5>TOPS</h5>
                 <div className='sidebar-links'>
-                    <Link to="">Tees</Link>
-                    <Link to="">Polos</Link>
-                    <Link to="">Long Sleeves</Link>
-                    <Link to="">Sweatshirts & Layers</Link>
-                    <Link to="">Outerwear</Link>
-                    <Link to="">All Tops</Link>
+                    <Link to="#">Tees</Link>
+                    <Link to="#">Polos</Link>
+                    <Link to="#">Long Sleeves</Link>
+                    <Link to="#">Sweatshirts & Layers</Link>
+                    <Link to="#">Outerwear</Link>
+                    <Link to="/clothes">All Tops</Link>
                 </div>
             </div>
             <div className='link-container'>
                 <h5>BOTTOMS</h5>
                 <div className='sidebar-links'>
-                    <Link to="">Shorts</Link>
-                    <Link to="">Pants & Joggers</Link>
-                    <Link to="">Sweatpants</Link>
-                    <Link to="">All Bottoms</Link>
+                    <Link to="#">Shorts</Link>
+                    <Link to="#">Pants & Joggers</Link>
+                    <Link to="#">Sweatpants</Link>
+                    <Link to="#">All Bottoms</Link>
                 </div>
             </div>
             <div className='link-container'>
                 <div className="sidebar-links">
-                    <Link to="">All Men</Link>
-                    <Link to="">All Women</Link>
+                    <Link to="/clothes/men">All Men</Link>
+                    <Link to="/clothes/women">All Women</Link>
                 </div>
             </div>
         </div>
